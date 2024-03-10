@@ -12,7 +12,11 @@
   home.file.".config/wallpaper1.png".source = ./modules/impermanence/gruvbox-dark-rainbow.png;
   home.file.".config/wallpaper2.png".source = ./modules/impermanence/gruvbox_pixel.png;
   home.file.".config/wallpaper3.png".source = ./modules/impermanence/gruv-simplistic-ngo.png;
-
+  # gtk
+  gtk.enable = true;
+  # qt
+  qt.enable = true;
+  # programs
   programs = {
     lazygit = {
         enable = true;
