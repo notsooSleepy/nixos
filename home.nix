@@ -1,0 +1,288 @@
+{ config, lib, pkgs, inputs, ... }:
+{
+  home.username = "sleepy";
+  home.homeDirectory = "/home/sleepy";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+  # cursor
+  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+  # wallpapers
+  home.file.".config/starship.toml".source = ./modules/impermanence/starship.toml;
+  home.file.".config/wallpaper1.png".source = ./modules/impermanence/gruvbox-dark-rainbow.png;
+  home.file.".config/wallpaper2.png".source = ./modules/impermanence/gruvbox_pixel.png;
+  home.file.".config/wallpaper3.png".source = ./modules/impermanence/gruv-simplistic-ngo.png;
+
+  programs = {
+    lazygit = {
+        enable = true;
+      };
+    gh = {
+      enable = true;
+      settings.git_protocol = "https";
+      gitCredentialHelper.enable = true;
+      gitCredentialHelper.hosts = [
+        "https://github.com"
+        "https://gist.github.com"
+      ];
+    };
+    git = {
+      enable = true;
+      userName  = "notsooSleepy";
+      userEmail = "bartlomiej.grabarek1@gmail.com";
+    };
+
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      enableAutosuggestions = true;
+      syntaxHighlighting.enable = true;
+      enableVteIntegration = true;
+      autocd = true;
+      shellAliases = {
+        ll = "ls -l";
+        update = "sudo nixos-rebuild switch";
+	f = "fzf";
+	n = "nvim";
+      };
+      history.size = 10000;
+      history.path = "${config.xdg.dataHome}/zsh/history";
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "git" "thefuck" ];
+        theme = "robbyrussell";
+      };
+    };
+    kitty = {
+      enable = true;
+      font.package = pkgs.fira-code;
+      font.name = "FiraCode";
+      font.size = 12;
+      theme = "Gruvbox Material Dark Hard";
+      settings = {
+        scrollback_lines = 10000;
+      };
+      extraConfig = ''
+        map ctrl+backspace send_text all \x17
+	'';
+    };
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+  };
+  # neovim config
+  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
+  programs.neovim = {
+    enable = true;
+    package = pkgs.neovim-nightly;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    plugins = with pkgs.vimPlugins; [
+
+    ];
+    extraConfig = ''
+      set tabstop=2
+      set shiftwidth=2
+      set expandtab     
+      set smarttab
+      set number
+      colorscheme gruvbox
+    '';
+  };
+  home.file."./.config/nvim/" = {
+    source = ./modules/nvim;
+    recursive = true;
+  };
+  # Treesitter is configured as a locally developed module in lazy.nvim
+  # we hardcode a symlink here so that we can refer to it in our lazy config
+  home.packages = with pkgs; [
+    ripgrep
+    fd
+    lua-language-server
+    wl-clipboard
+    wget
+    unzip
+    rustup
+    usermount
+  ];
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "23.11"; # Please read the comment before changing.
+  programs.home-manager.enable = true;
+  wayland.windowManager.hyprland = {
+    enable = true;
+    extraConfig = ''
+      exec-once = swww init
+      exec-once = swww img ~/.config/wallpaper1.png -o DP-1
+      exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
+      exec-once = swww img ~/.config/wallpaper3.png -o DP-2
+
+      # See https://wiki.hyprland.org/Configuring/Monitors/
+      monitor = DP-1, 1920x1080, 1920x40, 1
+      monitor = HDMI-A-1, 1920x1080, 0x30, 1
+      monitor = DP-2, 1920x1080, 3840x0, 1, transform, 1
+
+      workspace = 1, monitor:DP-1, default:true 
+      workspace = 2, monitor:HDMI-A-1, default:true 
+      workspace = 3, monitor:DP-2, dafault:true 
+
+      # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
+      input {
+          kb_layout = pl
+          kb_variant =
+          kb_model =
+          kb_rules =
+
+          kb_options = ctrl:nocaps
+
+          repeat_delay = 300
+          repeat_rate = 50
+
+          follow_mouse = 1
+
+          touchpad {
+        natural_scroll = no
+          }
+
+          sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+      }
+
+      general {
+          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+          gaps_in = 2
+          gaps_out = 5
+          border_size = 1
+          layout = dwindle
+      }
+
+      decoration {
+          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+          rounding = 3
+          blur {
+        enabled = true
+        size = 3
+        passes = 1
+          }
+
+          drop_shadow = yes
+          shadow_range = 15
+          shadow_render_power = 3
+          active_opacity = 1
+          inactive_opacity = 1
+
+
+      }
+
+      animations {
+          enabled = yes
+
+          # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+
+          bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+
+          animation = windows, 1, 7, myBezier
+          animation = windowsOut, 1, 7, default, popin 80%
+          animation = border, 1, 10, default
+          animation = borderangle, 1, 8, default
+          animation = fade, 1, 7, default
+          animation = workspaces, 1, 6, default
+      }
+
+      dwindle {
+          # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+          pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+          preserve_split = yes # you probably want this
+      }
+
+      master {
+          # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+          new_is_master = true
+      }
+
+      gestures {
+          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+          workspace_swipe = true
+          #workspace_swipe_fingers = 3
+          #workspace_swipe_distance = 300
+          workspace_swipe_invert = true
+          workspace_swipe_min_speed_to_force = 10
+          workspace_swipe_cancel_ratio = 0.85
+      }
+
+      # Example windowrule v1
+      # windowrule = float, ^(kitty)$
+      # Example windowrule v2
+      # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+
+
+      windowrule = opacity 1.0 override 1.0 override,^(kitty)$ # set opacity to 1.0 active and 0.5 inactive for kitty
+
+
+      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+      $mainMod = SUPER
+
+      # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+      bind = $mainMod , RETURN, exec, kitty
+      bind = $mainMod , apostrophe, exec, kitty nvim
+      bind = $mainMod , semicolon, exec, warp-terminal
+
+      bind = $mainMod, s, exec, rofi -show drun
+
+      bind = $mainMod SHIFT, s, exec, grimblast --notify copy area
+      bind = $mainMod SHIFT, d, exec, grimblast --notify save area
+
+      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o DP-1
+      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1
+      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-2
+      bind = $mainMod, backslash, exec, swww clear 1d2021
+
+      bind = $mainMod, W, killactive, 
+      bind = $mainMod SHIFT, Q, exit, 
+      bind = $mainMod, z, pseudo, # dwindle
+      bind = $mainMod, x, togglesplit, # dwindle
+      bind = $mainMod, c, togglefloating, 
+      bind = $mainMod, v, fullscreen, 0
+
+      # Move focus with mainMod + arrow keys
+      bind = $mainMod, H, movefocus, l
+      bind = $mainMod, L, movefocus, r
+      bind = $mainMod, K, movefocus, u
+      bind = $mainMod, J, movefocus, d
+      bind = $mainMod, Tab, cyclenext,          # change focus to another window
+      bind = $mainMod, Tab, bringactivetotop,   # bring it to the top 
+
+      bind = $mainMod SHIFT, H, movewindow, l
+      bind = $mainMod SHIFT, L, movewindow, r
+      bind = $mainMod SHIFT, K, movewindow, u
+      bind = $mainMod SHIFT, J, movewindow, d
+
+      # Scroll through existing workspaces with mainMod + scroll
+      bind = $mainMod, mouse_down, workspace, e+1
+      bind = $mainMod, mouse_up, workspace, e-1
+
+      # Move/resize windows with mainMod + LMB/RMB and dragging
+      bindm = $mainMod, mouse:272, movewindow
+      bindm = $mainMod, mouse:273, resizewindow
+
+      # Monitors
+      bind = $mainMod, 1, workspace, 1
+      bind = $mainMod, 2, workspace, 2
+      bind = $mainMod, 3, workspace, 3
+      bind = $mainMod, grave, workspace, m+1
+      bind = $mainMod SHIFT, grave, workspace, r+1
+      bind = $mainMod SHIFT, tab, movetoworkspace, r+1
+    '';
+    };
+
+
+  }
