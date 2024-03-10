@@ -61,6 +61,7 @@
       thunar-volman
     ];
   };
+
   services.gvfs.enable = true;
   services.tumbler.enable = true;
   # audio
