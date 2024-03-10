@@ -16,7 +16,6 @@
   gtk.enable = true;
   # qt
   qt.enable = true;
-
   # programs
   programs = {
     lazygit = {
