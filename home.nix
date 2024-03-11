@@ -137,6 +137,7 @@
       exec-once = swww img ~/.config/wallpaper1.png -o DP-1
       exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
       exec-once = swww img ~/.config/wallpaper3.png -o DP-2
+      exec-once = swww img ~/.config/wallpaper1.png -o LVDS-1
 
       exec-once = waybar
 
@@ -262,6 +263,7 @@
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o DP-1
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-2
+      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o LVDS-1
       bind = $mainMod, backslash, exec, swww clear 1d2021
 
       bind = $mainMod, W, killactive, 
