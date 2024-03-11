@@ -16,9 +16,17 @@
   gtk.enable = true;
   # qt
   qt.enable = true;
-
+  # network-manager-applet
+  services.network-manager-applet.enable = true;
+  # blueman-applet
+  services.blueman-applet.enable = true;
+  # dunst
+  services.dunst.enable = true;
   # programs
   programs = {
+    waybar = {
+        enable = true;
+      };
     lazygit = {
         enable = true;
       };
@@ -129,6 +137,11 @@
       exec-once = swww img ~/.config/wallpaper1.png -o DP-1
       exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
       exec-once = swww img ~/.config/wallpaper3.png -o DP-2
+
+      exec-once = waybar
+
+      exec-once = nm-applet --indicator
+      exec-once = blueman-applet
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = DP-1, 1920x1080, 1920x40, 1

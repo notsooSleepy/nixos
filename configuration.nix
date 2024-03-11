@@ -63,6 +63,8 @@
   };
   services.gvfs.enable = true;
   services.tumbler.enable = true;
+  # blueman for wifi
+  services.blueman.enable = true;
   # audio
   sound.enable = true;
   nixpkgs.config.pulseaudio = true;
@@ -100,7 +102,7 @@
     mpv-unwrapped
     ani-cli
     lua-language-server
-    lxappearance
+    networkmanagerapplet
     ];
   }; 
   # home manager
