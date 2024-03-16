@@ -26,6 +26,12 @@
   programs = {
     waybar = {
         enable = true;
+        settings = {
+          
+        };
+        # style = ''
+        #
+        # '';
       };
     lazygit = {
         enable = true;
@@ -55,8 +61,8 @@
       shellAliases = {
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
-	f = "fzf";
-	n = "nvim";
+        f = "fzf";
+        n = "nvim";
       };
       history.size = 10000;
       history.path = "${config.xdg.dataHome}/zsh/history";
@@ -77,6 +83,7 @@
       };
       extraConfig = ''
         map ctrl+backspace send_text all \x17
+        map ctrl+shift+h next_window
 	'';
     };
     starship = {
@@ -139,6 +146,8 @@
       exec-once = swww img ~/.config/wallpaper3.png -o DP-2
       exec-once = swww img ~/.config/wallpaper1.png -o LVDS-1
 
+      exec-once = swayidle timeout 600 'hyprctl dispatcher dpms off && swaylock --color 000000'
+
       exec-once = waybar
 
       exec-once = nm-applet --indicator
@@ -159,19 +168,16 @@
           kb_variant =
           kb_model =
           kb_rules =
-
           kb_options = ctrl:nocaps
-
           repeat_delay = 300
           repeat_rate = 50
-
           follow_mouse = 1
-
           touchpad {
-        natural_scroll = no
+            natural_scroll = no
+            disable_while_typing = true
           }
-
           sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+          numlock_by_default = true
       }
 
       general {
@@ -181,6 +187,15 @@
           gaps_out = 5
           border_size = 1
           layout = dwindle
+          col.active_border = rgb(cc241d) rgb(d79921) 45deg
+          col.inactive_border = rgb(1d2021)
+      }
+
+      misc {
+          mouse_move_enables_dpms = true
+          key_press_enables_dpms = true
+          disable_hyprland_logo = true
+          disable_splash_rendering = true
       }
 
       decoration {
@@ -188,18 +203,15 @@
 
           rounding = 3
           blur {
-        enabled = true
-        size = 3
-        passes = 1
+            enabled = true
+            size = 3
+            passes = 1
           }
-
           drop_shadow = yes
           shadow_range = 15
           shadow_render_power = 3
           active_opacity = 1
           inactive_opacity = 1
-
-
       }
 
       animations {
@@ -245,6 +257,8 @@
 
 
       windowrule = opacity 1.0 override 1.0 override,^(kitty)$ # set opacity to 1.0 active and 0.5 inactive for kitty
+      # windowrule = float,^(kitty)$ 
+      # windowrule = noinitialfocus,^(kitty)$ 
 
 
       # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -265,6 +279,8 @@
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-2
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o LVDS-1
       bind = $mainMod, backslash, exec, swww clear 1d2021
+
+      bind = $mainMod, bracketright, exec, swaylock --color 000000
 
       bind = $mainMod, W, killactive, 
       bind = $mainMod SHIFT, Q, exit, 

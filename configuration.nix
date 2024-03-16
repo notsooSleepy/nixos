@@ -46,8 +46,12 @@
   #shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+  # Bluetooth
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   # hyprland
   security.polkit.enable = true;
+  security.pam.services.swaylock = {};
   programs.hyprland = { 
   enable = true;
   xwayland.enable = true;
@@ -103,6 +107,10 @@
     ani-cli
     lua-language-server
     networkmanagerapplet
+    libappindicator-gtk3
+    wlogout
+    swayidle
+    swaylock
     ];
   }; 
   # home manager
