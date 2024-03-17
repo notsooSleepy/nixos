@@ -93,7 +93,7 @@
     vimAlias = true;
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
-
+      telescope-fzf-native-nvim
     ];
     extraConfig = ''
       set tabstop=2
