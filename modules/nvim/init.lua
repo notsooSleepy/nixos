@@ -791,7 +791,7 @@ require("lazy").setup({
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
 	},
-	{ -- Highlight, edit, and navigate code
+	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
@@ -868,26 +868,10 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		event = "LazyFile",
 		enabled = true,
-		opts = { mode = "cursor", max_lines = 3 },
-		keys = {
-			{
-				"<leader>qt",
-				function()
-					local Util = require("lazyvim.util")
-					local tsc = require("treesitter-context")
-					tsc.toggle()
-					if Util.inject.get_upvalue(tsc.toggle, "enabled") then
-						Util.info("Enabled Treesitter Context", { title = "Option" })
-					else
-						Util.warn("Disabled Treesitter Context", { title = "Option" })
-					end
-				end,
-				desc = "Toggle Treesitter Context",
-			},
-		},
+		opts = { mode = "cursor", max_lines = 5 },
 	},
+
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
 	-- put them in the right spots if you want.
