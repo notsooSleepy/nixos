@@ -204,6 +204,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- TODO: Add autocmd for MiniMap.
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -246,6 +248,7 @@ require("lazy").setup({
 	--
 	-- See `:help gitsigns` to understand what the configuration keys do
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
+		-- TODO: Add keybinds to gitsigns
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
@@ -642,6 +645,7 @@ require("lazy").setup({
 			},
 		},
 	},
+	-- TODO: Add org mode and orgmode snippet for cmp
 
 	{ -- Autocompletion
 		"hrsh7th/nvim-cmp",
@@ -807,6 +811,7 @@ require("lazy").setup({
 			end
 			require("mini.pairs").setup()
 			require("mini.map").setup()
+
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
