@@ -1,37 +1,5 @@
 --[[
 
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
     If you don't know anything about Lua, I recommend taking some time to read through
     a guide. One possible example which will only take 10-15 minutes:
       - https://learnxinyminutes.com/docs/lua/
@@ -40,21 +8,7 @@ What is Kickstart?
     reference for how Neovim integrates Lua.
     - :help lua-guide
     - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
   TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know how the Neovim basics, you can skip this step)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua
 
   Next, run AND READ `:help`.
     This will open up a help window with some basic information
@@ -69,94 +23,59 @@ Kickstart Guide:
   I have left several `:help X` comments throughout the init.lua
     These are hints about where to find more information about the relevant settings,
     plugins or neovim features used in kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your nvim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
-
 -- [[ Setting options ]]
 -- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
-
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
-
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
-
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
-
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.opt.clipboard = "unnamedplus"
-
 -- Enable break indent
 vim.opt.breakindent = true
-
 -- Save undo history
 vim.opt.undofile = true
-
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
 -- Keep signcolumn on by default
 vim.opt.signcolumn = "yes"
-
 -- Decrease update time
 vim.opt.updatetime = 250
-
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
 vim.opt.timeoutlen = 300
-
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
 -- Sets how neovim will display certain whitespace in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
-
 -- Show which line your cursor is on
 vim.opt.cursorline = true
-
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -164,8 +83,8 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>qe", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+vim.keymap.set("n", "<leader>qq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -181,9 +100,6 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
@@ -192,10 +108,6 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
@@ -204,7 +116,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- TODO: Add autocmd for MiniMap.
+vim.api.nvim_create_autocmd("BufEnter", {
+	desc = "Open minimap on buffer enter",
+	group = vim.api.nvim_create_augroup("notsooSleepy-enter-minimap", { clear = true }),
+	callback = function()
+		MiniMap.open()
+	end,
+})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -289,6 +207,7 @@ require("lazy").setup({
 				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
 				["<leader>f"] = { name = "[F]ind", _ = "which_key_ignore" },
 				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+				["gz"] = { name = "Mini.Surround", _ = "which_key_ignore" },
 			})
 		end,
 	},
@@ -667,12 +586,12 @@ require("lazy").setup({
 					-- `friendly-snippets` contains a variety of premade snippets.
 					--    See the README about individual language/framework/plugin snippets:
 					--    https://github.com/rafamadriz/friendly-snippets
-					-- {
-					--   'rafamadriz/friendly-snippets',
-					--   config = function()
-					--     require('luasnip.loaders.from_vscode').lazy_load()
-					--   end,
-					-- },
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
 				},
 			},
 			"saadparwaiz1/cmp_luasnip",
@@ -781,25 +700,25 @@ require("lazy").setup({
 		"echasnovski/mini.nvim",
 		config = function()
 			-- Better Around/Inside textobjects
-			--
 			-- Examples:
 			--  - va)  - [V]isually select [A]round [)]paren
 			--  - yinq - [Y]ank [I]nside [N]ext [']quote
 			--  - ci'  - [C]hange [I]nside [']quote
 			require("mini.ai").setup({ n_lines = 500 })
 
-			-- Add/delete/replace surroundings (brackets, quotes, etc.)
-			--
-			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-			-- - sd'   - [S]urround [D]elete [']quotes
-			-- - sr)'  - [S]urround [R]eplace [)] [']
-			require("mini.surround").setup()
+			require("mini.surround").setup({
+				mappings = {
+					add = "gza", -- Add surrounding in Normal and Visual modes
+					delete = "gzd", -- Delete surrounding
+					find = "gzf", -- Find surrounding (to the right)
+					find_left = "gzF", -- Find surrounding (to the left)
+					highlight = "gzh", -- Highlight surrounding
+					replace = "gzr", -- Replace surrounding
+					update_n_lines = "gzn", -- Update `n_lines`
+				},
+			})
 
-			-- Simple and easy statusline.
-			--  You could remove this setup call if you don't like it,
-			--  and try some other statusline plugin
 			local statusline = require("mini.statusline")
-			-- set use_icons to true if you have a Nerd Font
 			statusline.setup({ use_icons = vim.g.have_nerd_font })
 
 			-- You can configure sections in the statusline by overriding their
@@ -809,14 +728,70 @@ require("lazy").setup({
 			statusline.section_location = function()
 				return "%2l:%-2v"
 			end
+			require("mini.files").setup({
+
+				vim.keymap.set("n", "<leader>fm", function()
+					MiniFiles.open()
+				end, { desc = "Open MiniFiles" }),
+
+				-- Customization of shown content
+				content = {
+					-- Predicate for which file system entries to show
+					filter = nil,
+					-- What prefix to show to the left of file system entry
+					prefix = nil,
+					-- In which order to show file system entries
+					sort = nil,
+				},
+
+				-- Module mappings created only inside explorer.
+				-- Use `''` (empty string) to not create one.
+				mappings = {
+					close = "q",
+					go_in = "l",
+					go_in_plus = "L",
+					go_out = "h",
+					go_out_plus = "H",
+					reset = "<BS>",
+					reveal_cwd = "@",
+					show_help = "g?",
+					synchronize = "=",
+					trim_left = "<",
+					trim_right = ">",
+				},
+
+				-- General options
+				options = {
+					-- Whether to delete permanently or move into module-specific trash
+					permanent_delete = true,
+					-- Whether to use for editing directories
+					use_as_default_explorer = true,
+				},
+
+				-- Customization of explorer windows
+				windows = {
+					-- Maximum number of windows to show side by side
+					max_number = math.huge,
+					-- Whether to show preview of file/directory under cursor
+					preview = false,
+					-- Width of focused window
+					width_focus = 50,
+					-- Width of non-focused window
+					width_nofocus = 15,
+					-- Width of preview window
+					width_preview = 25,
+				},
+			})
+
 			require("mini.pairs").setup()
 			require("mini.map").setup()
+			require("mini.indentscope").setup()
 
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
 	},
-	{ -- Highlight, edit, and navigate code
+	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
@@ -890,6 +865,11 @@ require("lazy").setup({
 			--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		enabled = true,
+		opts = { mode = "cursor", max_lines = 5 },
 	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
