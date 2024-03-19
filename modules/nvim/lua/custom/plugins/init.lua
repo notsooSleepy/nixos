@@ -1,29 +1,26 @@
 return {
 	{
-		"nvim-lualine/lualine.nvim",
+		"folke/flash.nvim",
 		event = "VeryLazy",
-		init = function()
-			vim.g.lualine_laststatus = vim.o.laststatus
-			if vim.fn.argc(-1) > 0 then
-				-- set an empty statusline till lualine loads
-				vim.o.statusline = " "
-			else
-				-- hide the statusline on the starter page
-				vim.o.laststatus = 0
-			end
-		end,
-		opts = function()
-			-- PERF: we don't need this lualine require madness 🤷
-			local lualine_require = require("lualine_require")
-			lualine_require.require = require
-
-			vim.o.laststatus = vim.g.lualine_laststatus
-
-			return {
-				options = {
-					theme = "auto",
-				},
-			}
+		---@type Flash.Config
+		opts = {},
+	    -- stylua: ignore
+	    keys = {
+	      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+	      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+	      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+	      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+	      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+	    },
+	},
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
 		end,
 	},
 }
