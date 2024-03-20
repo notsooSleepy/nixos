@@ -111,6 +111,7 @@
     wlogout
     swayidle
     swaylock
+    wireplumber
     ];
   }; 
   # home manager
