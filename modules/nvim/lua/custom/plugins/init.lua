@@ -16,7 +16,7 @@ return {
 				desc = "Harpoon file",
 			},
 			{
-				"<leader>h",
+				"<leader>hh",
 				function()
 					local harpoon = require("harpoon")
 					harpoon.ui:toggle_quick_menu(harpoon:list())
@@ -90,9 +90,9 @@ return {
 		opts = { options = vim.opt.sessionoptions:get() },
     -- stylua: ignore
     keys = {
-      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
-      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+      { "<leader>qps", function() require("persistence").load() end, desc = "Restore Session" },
+      { "<leader>qpl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+      { "<leader>qpd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
     },
 	},
 }
