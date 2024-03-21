@@ -95,10 +95,10 @@ vim.keymap.set("n", "<leader>qq", vim.diagnostic.setloclist, { desc = "Open diag
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
@@ -173,6 +173,95 @@ require("lazy").setup({
 				topdelete = { text = "‾" },
 				changedelete = { text = "~" },
 			},
+			signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+			numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+			linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+			word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+			watch_gitdir = {
+				follow_files = true,
+			},
+			auto_attach = true,
+			attach_to_untracked = false,
+			current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+			current_line_blame_opts = {
+				virt_text = true,
+				virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+				delay = 1000,
+				ignore_whitespace = false,
+				virt_text_priority = 100,
+			},
+			current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
+			sign_priority = 6,
+			update_debounce = 100,
+			status_formatter = nil, -- Use default
+			max_file_length = 40000, -- Disable if file is longer than this (in lines)
+			preview_config = {
+				-- Options passed to nvim_open_win
+				border = "single",
+				style = "minimal",
+				relative = "cursor",
+				row = 0,
+				col = 1,
+			},
+			yadm = {
+				enable = false,
+			},
+			on_attach = function(bufnr)
+				local gs = package.loaded.gitsigns
+
+				local function map(mode, l, r, opts)
+					opts = opts or {}
+					opts.buffer = bufnr
+					vim.keymap.set(mode, l, r, opts)
+				end
+
+				-- Navigation
+				map("n", "]c", function()
+					if vim.wo.diff then
+						return "]c"
+					end
+					vim.schedule(function()
+						gs.next_hunk()
+					end)
+					return "<Ignore>"
+				end, { expr = true, desc = "gitsigns_next_hunk" })
+
+				map("n", "[c", function()
+					if vim.wo.diff then
+						return "[c"
+					end
+					vim.schedule(function()
+						gs.prev_hunk()
+					end)
+					return "<Ignore>"
+				end, { expr = true, desc = "gitsigns_prev_hunk" })
+
+				-- Actions
+				map("n", "<leader>hs", gs.stage_hunk, { desc = "stage_hunk" })
+				map("n", "<leader>hr", gs.reset_hunk, { desc = "reset_hunk" })
+				map("v", "<leader>hs", function()
+					gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, { desc = "line_stage_hunk" })
+				map("v", "<leader>hr", function()
+					gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, { desc = "line_reset_hunk" })
+				map("n", "<leader>hS", gs.stage_buffer, { desc = "stage_buffer" })
+				map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "undo_stage_hunk" })
+				map("n", "<leader>hR", gs.reset_buffer, { desc = "reset_buffer" })
+				map("n", "<leader>hp", gs.preview_hunk, { desc = "preview_hunk" })
+				map("n", "<leader>hb", function()
+					gs.blame_line({ full = true, desc = "blame_line" })
+				end)
+				map("n", "<leader>ht", gs.toggle_current_line_blame, { desc = "toggle_current_line_blame" })
+				map("n", "<leader>hd", gs.diffthis, { desc = "diffthis" })
+				map("n", "<leader>hD", function()
+					gs.diffthis("~")
+				end, { desc = "~diffthis" })
+				map("n", "<leader>he", gs.toggle_deleted, { desc = "toggle_deleted" })
+
+				-- Text object
+				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+			end,
 		},
 	},
 
@@ -199,11 +288,11 @@ require("lazy").setup({
 
 			-- Document existing key chains
 			require("which-key").register({
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
 				["<leader>f"] = { name = "[F]ind", _ = "which_key_ignore" },
-				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+				["<leader>l"] = { name = "[L]SP", _ = "which_key_ignore" },
+				["<leader>q"] = { name = "diagnostics+persistence", _ = "which_key_ignore" },
+				["<leader>qp"] = { name = "persistance", _ = "which_key_ignore" },
+				["<leader>h"] = { name = "gitsigns_hunks", _ = "which_key_ignore" },
 				["gz"] = { name = "Mini.Surround", _ = "which_key_ignore" },
 			})
 		end,
@@ -383,39 +472,35 @@ require("lazy").setup({
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+					map("<leader>ld", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
 					-- Find references for the word under your cursor.
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+					map("<leader>lr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 
 					-- Jump to the implementation of the word under your cursor.
 					--  Useful when your language has ways of declaring types without an actual implementation.
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+					map("<leader>li", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 
 					-- Jump to the type of the word under your cursor.
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+					map("<leader>lt", require("telescope.builtin").lsp_type_definitions, "[T]ype Definition")
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
-					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+					map("<leader>ls", require("telescope.builtin").lsp_document_symbols, "Document [S]ymbols")
 
 					-- Fuzzy find all the symbols in your current workspace
 					--  Similar to document symbols, except searches over your whole project.
-					map(
-						"<leader>ws",
-						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[W]orkspace [S]ymbols"
-					)
+					map("<leader>lw", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace Symbols")
 
 					-- Rename the variable under your cursor
 					--  Most Language Servers support renaming across files, etc.
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+					map("<leader>ln", vim.lsp.buf.rename, "Re[n]ame")
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
-					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					map("<leader>la", vim.lsp.buf.code_action, "Code [A]ction")
 
 					-- Opens a popup that displays documentation about the word under your cursor
 					--  See `:help K` for why this keymap
@@ -423,7 +508,7 @@ require("lazy").setup({
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header
-					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					map("<leader>lD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
