@@ -26,6 +26,10 @@
   services.dunst.enable = true;
   # programs
   programs = {
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     lazygit = {
         enable = true;
       };
@@ -47,7 +51,6 @@
       enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;
-      # enableAutosuggestions = true;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       autocd = true;
@@ -55,8 +58,16 @@
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
         f = "fzf";
+        ff = "cd $(find * -type d | fzf)";
+        fn = "fzf --print0 | xargs -0 -o vim";
         n = "nvim";
       };
+      initExtra = ''
+        if [ -n "''${commands[fzf-share]}" ]; then
+        source "$(fzf-share)/key-bindings.zsh"
+        source "$(fzf-share)/completion.zsh"
+        fi
+      '';
       history.size = 10000;
       history.path = "${config.xdg.dataHome}/zsh/history";
       oh-my-zsh = {
@@ -71,6 +82,7 @@
       font.name = "FiraCode";
       font.size = 12;
       theme = "Gruvbox Material Dark Hard";
+      shellIntegration.enableZshIntegration = true;
       settings = {
         scrollback_lines = 10000;
       };
