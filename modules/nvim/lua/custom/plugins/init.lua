@@ -1,4 +1,10 @@
 return {
+	-- TODO:
+	-- Add treesj
+	-- Do i touch markmap?
+	-- Check if you need more cmp sources
+	-- modify folke/flash below
+	--
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
@@ -61,6 +67,8 @@ return {
 		},
 	},
 	{
+		--TODO:
+		--Add more setup options
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		---@type Flash.Config

@@ -95,7 +95,6 @@
     pavucontrol
     lf
     du-dust
-    fzf
     btop
     thefuck
     grimblast
