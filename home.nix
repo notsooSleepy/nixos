@@ -2,7 +2,7 @@
 {
   imports =
   [
-    # ./modules/waybar.nix
+    ./modules/waybar.nix
     ./modules/hyprland.nix
   ];
   home.username = "sleepy";
@@ -29,6 +29,16 @@
     fzf = {
       enable = true;
       enableZshIntegration = true;
+      colors = {
+        bg = "#282828";
+        "bg+" = "#3c3836";
+        fg = "#83a598";
+        "fg+" = "#98971a";
+        hl = "#d3869b";
+        "hl+" = "#b16286";
+        prompt = "#fb4934";
+        pointer = "#b8bb26";
+      };
     };
     lazygit = {
         enable = true;
@@ -57,8 +67,7 @@
       shellAliases = {
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
-        f = "fzf";
-        ff = "cd $(find * -type d | fzf)";
+        f = "cd $(find * -type d | fzf)";
         fn = "fzf --print0 | xargs -0 -o vim";
         n = "nvim";
       };

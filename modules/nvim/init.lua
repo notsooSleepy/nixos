@@ -290,8 +290,9 @@ require("lazy").setup({
 			require("which-key").register({
 				["<leader>f"] = { name = "[F]ind", _ = "which_key_ignore" },
 				["<leader>l"] = { name = "[L]SP", _ = "which_key_ignore" },
-				["<leader>q"] = { name = "diagnostics+persistence", _ = "which_key_ignore" },
+				["<leader>q"] = { name = "diagnostics+persistence+treesj", _ = "which_key_ignore" },
 				["<leader>qp"] = { name = "persistance", _ = "which_key_ignore" },
+				["<leader>qt"] = { name = "treesj", _ = "which_key_ignore" },
 				["<leader>h"] = { name = "gitsigns_hunks", _ = "which_key_ignore" },
 				["gz"] = { name = "Mini.Surround", _ = "which_key_ignore" },
 			})

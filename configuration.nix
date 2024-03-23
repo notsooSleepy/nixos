@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, lib, ... }:
-
 {
   imports = [
       inputs.home-manager.nixosModules.default
