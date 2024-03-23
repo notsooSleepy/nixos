@@ -1,4 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
+let
+  gruvboxPlus = import ./modules/gruvbox-plus.nix { inherit pkgs; };
+in
 {
   imports =
   [
@@ -9,6 +12,9 @@
   home.homeDirectory = "/home/sleepy";
   # cursor
   home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+  home.file = {
+  ".icons/bibata".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
+  };
   # wallpapers
   home.file.".config/starship.toml".source = ./modules/impermanence/starship.toml;
   home.file.".config/wallpaper1.png".source = ./modules/impermanence/gruvbox-dark-rainbow.png;
@@ -16,8 +22,27 @@
   home.file.".config/wallpaper3.png".source = ./modules/impermanence/gruv-simplistic-ngo.png;
   # gtk
   gtk.enable = true;
+  gtk.cursorTheme.package = pkgs.bibata-cursors;
+  gtk.cursorTheme.name = "Bibata-Modern-Ice";
+
+  gtk.theme.package = pkgs.gruvbox-dark-gtk;
+  gtk.theme.name = "gruvbox-dark";
+
+  gtk.iconTheme.package = gruvboxPlus;
+  gtk.iconTheme.name = "GruvboxPlus";
   # qt
   qt.enable = true;
+  qt.platformTheme = "gtk";
+  qt.style.name = "adawaita-dark";
+    # detected automatically:
+    # adwaita, adwaita-dark, adwaita-highcontrast,
+    # adwaita-highcontrastinverse, breeze,
+    # bb10bright, bb10dark, cde, cleanlooks,
+    # gtk2, motif, plastique
+
+    # package to use
+  qt.style.package = pkgs.adwaita-qt;
+  # ------------------------------------
   # network-manager-applet
   services.network-manager-applet.enable = true;
   # blueman-applet
