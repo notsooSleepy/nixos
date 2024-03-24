@@ -20,7 +20,7 @@ in
   home.file.".config/wallpaper1.png".source = ./modules/impermanence/gruvbox-dark-rainbow.png;
   home.file.".config/wallpaper2.png".source = ./modules/impermanence/gruvbox_pixel.png;
   home.file.".config/wallpaper3.png".source = ./modules/impermanence/gruv-simplistic-ngo.png;
-  # gtk
+  # gtk---------------------------------
   gtk.enable = true;
   gtk.cursorTheme.package = pkgs.bibata-cursors;
   gtk.cursorTheme.name = "Bibata-Modern-Ice";
@@ -34,12 +34,6 @@ in
   qt.enable = true;
   qt.platformTheme = "gtk";
   qt.style.name = "adawaita-dark";
-    # detected automatically:
-    # adwaita, adwaita-dark, adwaita-highcontrast,
-    # adwaita-highcontrastinverse, breeze,
-    # bb10bright, bb10dark, cde, cleanlooks,
-    # gtk2, motif, plastique
-
     # package to use
   qt.style.package = pkgs.adwaita-qt;
   # ------------------------------------
@@ -49,6 +43,7 @@ in
   services.blueman-applet.enable = true;
   # dunst
   services.dunst.enable = true;
+  # ------------------------------------
   # programs
   programs = {
     fzf = {
@@ -158,7 +153,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
+  # -----------------------------
   home.packages = with pkgs; [
     ripgrep
     fd

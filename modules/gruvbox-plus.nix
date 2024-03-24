@@ -1,7 +1,7 @@
 { pkgs }:
 
 pkgs.stdenv.mkDerivation {
-    name = "Gruvbox-Plus";
+    name = "GruvboxPlus";
 
     src = pkgs.fetchurl {
       url = "https://github.com/SylEleuth/gruvbox-plus-icon-pack/releases/download/v5.2/gruvbox-plus-icon-pack-5.2.zip";

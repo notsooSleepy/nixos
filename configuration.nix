@@ -39,9 +39,21 @@
   # Configure console keymap
   console.keyMap = "pl2";
   # display manager
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.defaultSession = "hyprland";
+  services.xserver = {
+    enable = true;
+    displayManager.defaultSession = "hyprland";
+    displayManager = {
+      sddm = {
+        enable = true;
+        theme = "${import ./modules/sddm-theme.nix { inherit pkgs; }}";
+      };
+    setupCommands = ''
+      xrandr --output DP-2 --off
+      xrandr --output HDMI-A-1 --off
+      xrandr --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal
+    '';
+    };
+  };
   #shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -124,6 +136,7 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    libsForQt5.qt5.qtgraphicaleffects
   ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
