@@ -1,34 +1,64 @@
 { config, lib, pkgs, inputs, ... }:
+let
+  gruvboxPlus = import ./modules/gruvbox-plus.nix { inherit pkgs; };
+in
 {
   imports =
   [
-    # ./modules/waybar.nix
+    ./modules/waybar.nix
     ./modules/hyprland.nix
   ];
   home.username = "sleepy";
   home.homeDirectory = "/home/sleepy";
   # cursor
   home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+  home.file = {
+  ".icons/bibata".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
+  };
   # wallpapers
   home.file.".config/starship.toml".source = ./modules/impermanence/starship.toml;
   home.file.".config/wallpaper1.png".source = ./modules/impermanence/gruvbox-dark-rainbow.png;
   home.file.".config/wallpaper2.png".source = ./modules/impermanence/gruvbox_pixel.png;
   home.file.".config/wallpaper3.png".source = ./modules/impermanence/gruv-simplistic-ngo.png;
-  # gtk
+  # gtk---------------------------------
   gtk.enable = true;
+  gtk.cursorTheme.package = pkgs.bibata-cursors;
+  gtk.cursorTheme.name = "Bibata-Modern-Ice";
+
+  gtk.theme.package = pkgs.gruvbox-dark-gtk;
+  gtk.theme.name = "gruvbox-dark";
+
+  gtk.iconTheme.package = gruvboxPlus;
+  gtk.iconTheme.name = "GruvboxPlus";
   # qt
   qt.enable = true;
+  qt.platformTheme = "gtk";
+  qt.style.name = "adawaita-dark";
+    # package to use
+  qt.style.package = pkgs.adwaita-qt;
+  # ------------------------------------
   # network-manager-applet
   services.network-manager-applet.enable = true;
   # blueman-applet
   services.blueman-applet.enable = true;
   # dunst
   services.dunst.enable = true;
+  # ------------------------------------
   # programs
   programs = {
     fzf = {
       enable = true;
       enableZshIntegration = true;
+      colors = {
+        bg = "#282828";
+        "bg+" = "#3c3836";
+        fg = "#83a598";
+        "fg+" = "#98971a";
+        hl = "#d3869b";
+        "hl+" = "#b16286";
+        prompt = "#fb4934";
+        pointer = "#b8bb26";
+      };
     };
     lazygit = {
         enable = true;
@@ -57,8 +87,7 @@
       shellAliases = {
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
-        f = "fzf";
-        ff = "cd $(find * -type d | fzf)";
+        f = "cd $(find * -type d | fzf)";
         fn = "fzf --print0 | xargs -0 -o vim";
         n = "nvim";
       };
@@ -124,7 +153,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
+  # -----------------------------
   home.packages = with pkgs; [
     ripgrep
     fd
