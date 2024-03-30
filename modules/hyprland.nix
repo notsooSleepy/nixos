@@ -131,7 +131,7 @@ _:
       bind = $mainMod , RETURN, exec, kitty
       bind = $mainMod , apostrophe, exec, kitty nvim
 
-      bind = $mainMod, s, exec, rofi -show drun
+      bind = $mainMod, s, exec, rofi -show drun - config ~/.config/rofi/config.rasi
 
       bind = $mainMod SHIFT, s, exec, grimblast --notify copy area
       bind = $mainMod SHIFT, d, exec, grimblast --notify save area

@@ -15,8 +15,12 @@ in
   home.file = {
   ".icons/bibata".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
   };
-  # wallpapers
+  # starship config
   home.file.".config/starship.toml".source = ./modules/impermanence/starship.toml;
+  # rofi themes and config
+  home.file.".config/rofi/config.rasi".source = ./modules/impermanence/config.rasi;
+  home.file.".config/rofi/tokyonight.rasi".source = ./modules/impermanence/tokyonight.rasi;
+  # wallpapers
   home.file.".config/wallpaper1.png".source = ./modules/impermanence/wallpaper_center.jpg;
   home.file.".config/wallpaper2.png".source = ./modules/impermanence/wallpaper_left.jpg;
   home.file.".config/wallpaper3.png".source = ./modules/impermanence/wallpaper_right.jpg;
