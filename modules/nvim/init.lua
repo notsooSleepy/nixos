@@ -24,7 +24,6 @@
     These are hints about where to find more information about the relevant settings,
     plugins or neovim features used in kickstart.
 --]]
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed
@@ -151,9 +150,6 @@ require("lazy").setup({
 	-- Here is a more advanced example where we pass configuration
 	-- options to `gitsigns.nvim`. This is equivalent to the following lua:
 	--    require('gitsigns').setup({ ... })
-	--
-	-- TODO: Add keybinds to gitsigns
-
 	-- See `:help gitsigns` to understand what the configuration keys do
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
 		"lewis6991/gitsigns.nvim",
@@ -284,6 +280,7 @@ require("lazy").setup({
 				["<leader>l"] = { name = "[L]SP", _ = "which_key_ignore" },
 				["<leader>h"] = { name = "gitsigns_hunks", _ = "which_key_ignore" },
 				["<leader>q"] = { name = "persistance", _ = "which_key_ignore" },
+				["<leader>x"] = { name = "folke/trouble", _ = "which_key_ignore" },
 				["gz"] = { name = "Mini.Surround", _ = "which_key_ignore" },
 				["<leader>hb"] = { name = "blame_line", _ = "which_key_ignore" },
 			})
@@ -791,7 +788,53 @@ require("lazy").setup({
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = true },
+		opts = {
+			signs = true,
+			vim.keymap.set("n", "]t", function()
+				require("todo-comments").jump_next()
+			end, { desc = "Next todo comment" }),
+
+			vim.keymap.set("n", "[t", function()
+				require("todo-comments").jump_prev()
+			end, { desc = "Previous todo comment" }),
+		},
+	},
+	{
+		"folke/trouble.nvim",
+		branch = "dev", -- IMPORTANT!
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>xl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
@@ -814,17 +857,6 @@ require("lazy").setup({
 					update_n_lines = "gzn", -- Update `n_lines`
 				},
 			})
-
-			-- local statusline = require("mini.statusline")
-			-- statusline.setup({ use_icons = vim.g.have_nerd_font })
-			--
-			-- -- You can configure sections in the statusline by overriding their
-			-- -- default behavior. For example, here we set the section for
-			-- -- cursor location to LINE:COLUMN
-			-- ---@diagnostic disable-next-line: duplicate-set-field
-			-- statusline.section_location = function()
-			-- 	return "%2l:%-2v"
-			-- end
 			require("mini.files").setup({
 
 				vim.keymap.set("n", "<leader>fm", function()

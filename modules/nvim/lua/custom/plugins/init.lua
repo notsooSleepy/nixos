@@ -1,7 +1,6 @@
 return {
 	-- TODO:
 	-- Check if you need more cmp sources
-	-- modify folke/flash below
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "VeryLazy",
@@ -73,8 +72,6 @@ return {
 		},
 	},
 	{
-		--TODO:
-		--Add more setup options
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		---@type Flash.Config
