@@ -38,6 +38,15 @@
   };
   # Configure console keymap
   console.keyMap = "pl2";
+  # livebook ---------------------------
+    # services.livebook = {
+    #   enableUserService = true;
+    #   environmentFile = pkgs.writeText "livebook.env" ''
+    #     LIVEBOOK_PORT = 20123
+    #     LIVEBOOK_PASSWORD = "1234";
+    #   '';
+    # };
+  # ------------------------------------
   # display manager
   services.xserver = {
     enable = true;
@@ -86,6 +95,15 @@
   hardware.pulseaudio.enable = true;
   # unfree packages
   nixpkgs.config.allowUnfree = true;
+  # postgresql
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "mydatabase" ];
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+    '';
+  };
   # fonts
   fonts.packages = with pkgs; [
   nerdfonts
@@ -101,7 +119,6 @@
     gh
     google-chrome
     kitty
-    warp-terminal
     rofi-wayland
     pavucontrol
     lf
@@ -122,6 +139,9 @@
     swayidle
     swaylock
     wireplumber
+    livebook
+    mate.atril
+    inotify-tools
     ];
   }; 
   # home manager

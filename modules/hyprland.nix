@@ -130,7 +130,6 @@ _:
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
       bind = $mainMod , RETURN, exec, kitty
       bind = $mainMod , apostrophe, exec, kitty nvim
-      bind = $mainMod , semicolon, exec, warp-terminal
 
       bind = $mainMod, s, exec, rofi -show drun
 
@@ -141,7 +140,7 @@ _:
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-2
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o LVDS-1
-      bind = $mainMod, backslash, exec, swww clear 1d2021
+      bind = $mainMod, backslash, exec, swww clear 1a1b26
 
       bind = $mainMod, bracketright, exec, swaylock --color 000000
 

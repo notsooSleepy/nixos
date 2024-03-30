@@ -17,9 +17,9 @@ in
   };
   # wallpapers
   home.file.".config/starship.toml".source = ./modules/impermanence/starship.toml;
-  home.file.".config/wallpaper1.png".source = ./modules/impermanence/gruvbox-dark-rainbow.png;
-  home.file.".config/wallpaper2.png".source = ./modules/impermanence/gruvbox_pixel.png;
-  home.file.".config/wallpaper3.png".source = ./modules/impermanence/gruv-simplistic-ngo.png;
+  home.file.".config/wallpaper1.png".source = ./modules/impermanence/wallpaper_center.jpg;
+  home.file.".config/wallpaper2.png".source = ./modules/impermanence/wallpaper_left.jpg;
+  home.file.".config/wallpaper3.png".source = ./modules/impermanence/wallpaper_right.jpg;
   # gtk---------------------------------
   gtk.enable = true;
   gtk.cursorTheme.package = pkgs.bibata-cursors;
@@ -88,7 +88,7 @@ in
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
         f = "cd $(find * -type d | fzf)";
-        fn = "fzf --print0 | xargs -0 -o vim";
+        fn = "fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' --print0 | xargs -0 -o vim";
         n = "nvim";
       };
       initExtra = ''
@@ -110,7 +110,7 @@ in
       font.package = pkgs.fira-code;
       font.name = "FiraCode";
       font.size = 12;
-      theme = "Gruvbox Material Dark Hard";
+      theme = "Tokyo Night";
       shellIntegration.enableZshIntegration = true;
       settings = {
         scrollback_lines = 10000;
@@ -163,6 +163,9 @@ in
     unzip
     rustup
     usermount
+    elixir_1_16
+    bat
+    exercism
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

@@ -7,7 +7,7 @@ _:
         layer = "top";
         position = "top";
         height = 30;
-        modules-left = [ "hyprland/workspaces" "custom/media"];
+        modules-left = [ "hyprland/workspaces" "custom/thunar"];
         modules-center = [ "hyprland/window" ];
         modules-right = [ "custom/power"
           "mpd"
@@ -158,17 +158,12 @@ _:
             };
             on-click = "pavucontrol";
         };
-        "custom/media" = {
-            format = "{icon} {}";
-            return-type = "json";
-            max-length = 40;
-            format-icons = {
-                spotify = "";
-                default = "";
+        "custom/thunar" = {
+            format = "󱇙";
+            on-click = "thunar";
             };
-        };
         "custom/power" = {
-          format = "󰐥 ";
+          format = "󰐥";
           on-click = "wlogout";
           };
 
@@ -433,7 +428,7 @@ window#waybar.hidden {
 	margin-left: 8px;
 	margin-right: 8px;
 	padding-left: 10px;
-	padding-right: 5px;
+	padding-right: 12px;
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
@@ -441,11 +436,13 @@ window#waybar.hidden {
 	background: #83a598;
 }
 
-#custom-media {
+#custom-thunar {
+        font-size: 20px;
 	margin-top: 6px;
 	margin-left: 8px;
+        margin-right: 8px;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 14px;
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
@@ -457,7 +454,7 @@ window#waybar.hidden {
 	margin-top: 6px;
 	margin-left: 4px;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 15px;
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
@@ -466,14 +463,14 @@ window#waybar.hidden {
 }
 
 #idle_inhibitor.activated {
-  margin-top: 6px;
+        margin-top: 6px;
 	margin-left: 4px;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 15px;
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-  color: #282828;
+        color: #282828;
 	background: #F2CDCD;
 }
 
