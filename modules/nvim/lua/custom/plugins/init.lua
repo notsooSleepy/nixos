@@ -3,6 +3,15 @@ return {
 	-- Check if you need more cmp sources
 	-- modify folke/flash below
 	{
+		"norcalli/nvim-colorizer.lua",
+		event = "VeryLazy",
+		config = function()
+			require("colorizer").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	},
+	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		opts = {

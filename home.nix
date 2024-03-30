@@ -50,14 +50,14 @@ in
       enable = true;
       enableZshIntegration = true;
       colors = {
-        bg = "#282828";
-        "bg+" = "#3c3836";
-        fg = "#83a598";
-        "fg+" = "#98971a";
-        hl = "#d3869b";
-        "hl+" = "#b16286";
-        prompt = "#fb4934";
-        pointer = "#b8bb26";
+        bg = "#1a1b26";
+        "bg+" = "#292e42";
+        fg = "#c0caf5";
+        "fg+" = "#c0caf5";
+        hl = "#ff9e64";
+        "hl+" = "#ff9e64";
+        prompt = "#7dcfff";
+        pointer = "#7dcfff";
       };
     };
     lazygit = {

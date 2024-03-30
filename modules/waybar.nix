@@ -192,8 +192,8 @@ window#waybar.hidden {
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-  color: #282828;
-	background: #98971a;
+  color: #1a1b26;
+	background: #bb9af7;
 }
 #tags {
 	margin-top: 6px;
@@ -201,7 +201,7 @@ window#waybar.hidden {
 	font-size: 4px;
 	margin-bottom: 0px;
 	border-radius: 10px;
-	background: #282828;
+	background: #1a1b26;
 	transition: none;
 }
 
@@ -211,13 +211,13 @@ window#waybar.hidden {
 	font-size: 4px;
 	margin-bottom: 0px;
 	border-radius: 10px;
-	background: #282828;
+	background: #1a1b26;
 	transition: none;
 }
 
 #tags button {
 	transition: none;
-	color: #282828;
+	color: #1a1b26;
 	background: transparent;
 	font-size: 16px;
 	border-radius: 2px;
@@ -264,8 +264,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #458588;
+	color: #1a1b26;
+	background: #7aa2f7;
 }
 
 #temperature.critical {
@@ -286,7 +286,7 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
+	color: #1a1b26;
 	background: #b16286;
 }
 
@@ -329,7 +329,7 @@ window#waybar.hidden {
       }
 
 #disk {
-          background: #964B00;
+          background: #e0af68;
       }
 #network {
 	margin-top: 6px;
@@ -339,8 +339,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #928374;
+	color: #1a1b26;
+	background: #9ece6a;
 }
 
 #pulseaudio {
@@ -351,8 +351,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #98971a;
+	color: #1a1b26;
+	background: #f7768e;
 }
 
 @keyframes blink {
@@ -370,7 +370,7 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
+	color: #1a1b26;
 	background: #F8BD96;
 }
 
@@ -382,8 +382,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #d79921;
+	color: #1a1b26;
+	background: #a9b1d6;
 }
 
 #memory {
@@ -394,8 +394,8 @@ window#waybar.hidden {
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #ebdbb2;
+	color: #1a1b26;
+	background: #7dcfff;
 }
 
 #cpu {
@@ -406,8 +406,8 @@ window#waybar.hidden {
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #fe8019;
+	color: #1a1b26;
+	background: #bb9af7;
 }
 
 #tray {
@@ -418,8 +418,8 @@ window#waybar.hidden {
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #a89984;
+	color: #1a1b26;
+	background: #7aa2f7;
 }
 
 #custom-power {
@@ -432,8 +432,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #83a598;
+	color: #1a1b26;
+	background: #e0af68;
 }
 
 #custom-thunar {
@@ -446,8 +446,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #fabd2f;
+	color: #1a1b26;
+	background: #9ece6a;
 }
 
 #idle_inhibitor {
@@ -458,8 +458,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #282828;
-	background: #458588;
+	color: #1a1b26;
+	background: #f7768e;
 }
 
 #idle_inhibitor.activated {
@@ -470,8 +470,8 @@ window#waybar.hidden {
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-        color: #282828;
-	background: #F2CDCD;
+        color: #1a1b26;
+	background: #414868;
 }
 
 #mpd {
