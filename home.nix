@@ -15,11 +15,15 @@ in
   home.file = {
   ".icons/bibata".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
   };
-  # wallpapers
+  # starship config
   home.file.".config/starship.toml".source = ./modules/impermanence/starship.toml;
-  home.file.".config/wallpaper1.png".source = ./modules/impermanence/gruvbox-dark-rainbow.png;
-  home.file.".config/wallpaper2.png".source = ./modules/impermanence/gruvbox_pixel.png;
-  home.file.".config/wallpaper3.png".source = ./modules/impermanence/gruv-simplistic-ngo.png;
+  # rofi themes and config
+  home.file.".config/rofi/config.rasi".source = ./modules/impermanence/config.rasi;
+  home.file.".config/rofi/tokyonight.rasi".source = ./modules/impermanence/tokyonight.rasi;
+  # wallpapers
+  home.file.".config/wallpaper1.png".source = ./modules/impermanence/wallpaper_center.jpg;
+  home.file.".config/wallpaper2.png".source = ./modules/impermanence/wallpaper_left.jpg;
+  home.file.".config/wallpaper3.png".source = ./modules/impermanence/wallpaper_right.jpg;
   # gtk---------------------------------
   gtk.enable = true;
   gtk.cursorTheme.package = pkgs.bibata-cursors;
@@ -50,14 +54,14 @@ in
       enable = true;
       enableZshIntegration = true;
       colors = {
-        bg = "#282828";
-        "bg+" = "#3c3836";
-        fg = "#83a598";
-        "fg+" = "#98971a";
-        hl = "#d3869b";
-        "hl+" = "#b16286";
-        prompt = "#fb4934";
-        pointer = "#b8bb26";
+        bg = "#1a1b26";
+        "bg+" = "#292e42";
+        fg = "#c0caf5";
+        "fg+" = "#c0caf5";
+        hl = "#ff9e64";
+        "hl+" = "#ff9e64";
+        prompt = "#7dcfff";
+        pointer = "#7dcfff";
       };
     };
     lazygit = {
@@ -88,7 +92,7 @@ in
         ll = "ls -l";
         update = "sudo nixos-rebuild switch";
         f = "cd $(find * -type d | fzf)";
-        fn = "fzf --print0 | xargs -0 -o vim";
+        fn = "fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' --print0 | xargs -0 -o vim";
         n = "nvim";
       };
       initExtra = ''
@@ -110,7 +114,7 @@ in
       font.package = pkgs.fira-code;
       font.name = "FiraCode";
       font.size = 12;
-      theme = "Gruvbox Material Dark Hard";
+      theme = "Tokyo Night";
       shellIntegration.enableZshIntegration = true;
       settings = {
         scrollback_lines = 10000;
@@ -163,6 +167,9 @@ in
     unzip
     rustup
     usermount
+    elixir_1_16
+    bat
+    exercism
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

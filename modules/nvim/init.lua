@@ -24,7 +24,6 @@
     These are hints about where to find more information about the relevant settings,
     plugins or neovim features used in kickstart.
 --]]
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed
@@ -37,7 +36,7 @@ vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
--- Enable mouse mode, can be useful for resizing splits for example!
+-- Enable mouse mode, can be useful for resizinu splits for example!
 vim.opt.mouse = "a"
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
@@ -49,7 +48,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.breakindent = true
 -- Save undo history
 vim.opt.undofile = true
--- Case-insensitive searching UNLESS \C or capital in search
+-- Case-insensitive searchinu UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 -- Keep signcolumn on by default
@@ -83,8 +82,8 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>qe", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>qq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+vim.keymap.set("n", "<leader>w", vim.diagnostic.setloclist, { desc = "Open diagnostic [W]Quickfix list" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -113,14 +112,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
 		vim.highlight.on_yank()
-	end,
-})
-
-vim.api.nvim_create_autocmd("BufEnter", {
-	desc = "Open minimap on buffer enter",
-	group = vim.api.nvim_create_augroup("notsooSleepy-enter-minimap", { clear = true }),
-	callback = function()
-		MiniMap.open()
 	end,
 })
 
@@ -159,9 +150,6 @@ require("lazy").setup({
 	-- Here is a more advanced example where we pass configuration
 	-- options to `gitsigns.nvim`. This is equivalent to the following lua:
 	--    require('gitsigns').setup({ ... })
-	--
-	-- TODO: Add keybinds to gitsigns
-
 	-- See `:help gitsigns` to understand what the configuration keys do
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
 		"lewis6991/gitsigns.nvim",
@@ -290,11 +278,11 @@ require("lazy").setup({
 			require("which-key").register({
 				["<leader>f"] = { name = "[F]ind", _ = "which_key_ignore" },
 				["<leader>l"] = { name = "[L]SP", _ = "which_key_ignore" },
-				["<leader>q"] = { name = "diagnostics+persistence+treesj", _ = "which_key_ignore" },
-				["<leader>qp"] = { name = "persistance", _ = "which_key_ignore" },
-				["<leader>qt"] = { name = "treesj", _ = "which_key_ignore" },
 				["<leader>h"] = { name = "gitsigns_hunks", _ = "which_key_ignore" },
+				["<leader>q"] = { name = "persistance", _ = "which_key_ignore" },
+				["<leader>x"] = { name = "folke/trouble", _ = "which_key_ignore" },
 				["gz"] = { name = "Mini.Surround", _ = "which_key_ignore" },
+				["<leader>hb"] = { name = "blame_line", _ = "which_key_ignore" },
 			})
 		end,
 	},
@@ -647,8 +635,6 @@ require("lazy").setup({
 			},
 		},
 	},
-	-- TODO: Add org mode and orgmode snippet for cmp
-
 	{ -- Autocompletion
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -759,25 +745,96 @@ require("lazy").setup({
 		-- change the command in the config to whatever the name of that colorscheme is
 		--
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-		"ellisonleao/gruvbox.nvim",
+		"folke/tokyonight.nvim",
+		lazy = false,
 		priority = 1000, -- make sure to load this before all the other start plugins
 		init = function()
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("gruvbox")
+			vim.cmd.colorscheme("tokyonight-night")
 
 			-- You can configure highlights by doing something like
 			vim.cmd.hi("Comment gui=none")
 		end,
 	},
-
-	-- Highlight todo, notes, etc in comments
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VeryLazy",
+		init = function()
+			vim.g.lualine_laststatus = vim.o.laststatus
+			if vim.fn.argc(-1) > 0 then
+				-- set an empty statusline till lualine loads
+				vim.o.statusline = " "
+			else
+				-- hide the statusline on the starter page
+				vim.o.laststatus = 0
+			end
+		end,
+		opts = function()
+			local lualine_require = require("lualine_require")
+			lualine_require.require = require
+			vim.o.laststatus = vim.g.lualine_laststatus
+			return {
+				options = {
+					theme = "tokyonight",
+					globalstatus = true,
+				},
+			}
+		end,
+	},
 	{
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
+		opts = {
+			signs = true,
+			vim.keymap.set("n", "]t", function()
+				require("todo-comments").jump_next()
+			end, { desc = "Next todo comment" }),
+
+			vim.keymap.set("n", "[t", function()
+				require("todo-comments").jump_prev()
+			end, { desc = "Previous todo comment" }),
+		},
+	},
+	{
+		"folke/trouble.nvim",
+		branch = "dev", -- IMPORTANT!
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>xl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
@@ -800,17 +857,6 @@ require("lazy").setup({
 					update_n_lines = "gzn", -- Update `n_lines`
 				},
 			})
-
-			local statusline = require("mini.statusline")
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-			-- You can configure sections in the statusline by overriding their
-			-- default behavior. For example, here we set the section for
-			-- cursor location to LINE:COLUMN
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
 			require("mini.files").setup({
 
 				vim.keymap.set("n", "<leader>fm", function()
@@ -867,7 +913,6 @@ require("lazy").setup({
 			})
 
 			require("mini.pairs").setup()
-			require("mini.map").setup()
 			require("mini.indentscope").setup()
 
 			-- ... and there is more!

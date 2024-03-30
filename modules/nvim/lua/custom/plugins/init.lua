@@ -1,37 +1,12 @@
 return {
 	-- TODO:
-	-- Add treesj
-	-- Do i touch markmap?
 	-- Check if you need more cmp sources
-	-- modify folke/flash below
-	--
 	{
-		"Wansmer/treesj",
-		keys = { "<leader>qtm", "<leader>qtj", "<leader>qts" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		"norcalli/nvim-colorizer.lua",
+		event = "VeryLazy",
 		config = function()
-			require("treesj").setup({
-				---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
-				use_default_keymaps = true,
-				---@type boolean Node with syntax error will not be formatted
-				check_syntax_error = true,
-				---If line after join will be longer than max value,
-				---@type number If line after join will be longer than max value, node will not be formatted
-				max_join_length = 120,
-				---Cursor behavior:
-				---hold - cursor follows the node/place on which it was called
-				---start - cursor jumps to the first symbol of the node being formatted
-				---end - cursor jumps to the last symbol of the node being formatted
-				---@type 'hold'|'start'|'end'
-				cursor_behavior = "hold",
-				---@type boolean Notify about possible problems or not
-				notify = true,
-				---@type boolean Use `dot` for repeat action
-				dot_repeat = true,
-				---@type nil|function Callback for treesj error handler. func (err_text, level, ...other_text)
-				on_error = nil,
-				---@type table Presets for languages
-				-- langs = {}, -- See the default presets in lua/treesj/langs
+			require("colorizer").setup({
+				-- Configuration here, or leave empty to use defaults
 			})
 		end,
 	},
@@ -97,8 +72,6 @@ return {
 		},
 	},
 	{
-		--TODO:
-		--Add more setup options
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		---@type Flash.Config
@@ -128,9 +101,9 @@ return {
 		opts = { options = vim.opt.sessionoptions:get() },
     -- stylua: ignore
     keys = {
-      { "<leader>qps", function() require("persistence").load() end, desc = "Restore Session" },
-      { "<leader>qpl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      { "<leader>qpd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
+      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
     },
 	},
 }
