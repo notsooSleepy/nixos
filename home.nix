@@ -170,6 +170,9 @@ in
     elixir_1_16
     bat
     exercism
+    gigalixir
+    flyctl
+    railway
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
