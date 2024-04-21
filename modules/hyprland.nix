@@ -159,10 +159,10 @@ _:
       bind = $mainMod, Tab, cyclenext,          # change focus to another window
       bind = $mainMod, Tab, bringactivetotop,   # bring it to the top 
 
-      bind = $mainMod SHIFT, H, movewindow, l
-      bind = $mainMod SHIFT, L, movewindow, r
-      bind = $mainMod SHIFT, K, movewindow, u
-      bind = $mainMod SHIFT, J, movewindow, d
+      bind = $mainMod CTRL, H, movewindow, l
+      bind = $mainMod CTRL, L, movewindow, r
+      bind = $mainMod CTRL, K, movewindow, u
+      bind = $mainMod CTRL, J, movewindow, d
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1
