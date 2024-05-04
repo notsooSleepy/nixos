@@ -48,19 +48,20 @@
     # };
   # ------------------------------------
   # display manager
-  services.xserver = {
-    enable = true;
+  services = {
+    xserver.enable = true;
+    xserver.displayManager.setupCommands = ''
+      xrandr --output DP-2 --off
+      xrandr --output HDMI-A-1 --off
+      xrandr --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal
+    '';
     displayManager.defaultSession = "hyprland";
     displayManager = {
       sddm = {
         enable = true;
         theme = "${import ./modules/sddm-theme.nix { inherit pkgs; }}";
+        wayland.enable = true;
       };
-    setupCommands = ''
-      xrandr --output DP-2 --off
-      xrandr --output HDMI-A-1 --off
-      xrandr --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal
-    '';
     };
   };
   #shell
@@ -143,7 +144,8 @@
     mate.atril
     inotify-tools
     python3
-    nodejs_21
+    nodejs_22
+    go
     ];
   }; 
   # home manager

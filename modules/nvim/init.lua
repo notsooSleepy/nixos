@@ -538,8 +538,16 @@ require("lazy").setup({
 			local servers = {
 				-- clangd = {},
 				-- gopls = {},
-				-- pyright = {},
-				-- rust_analyzer = {},
+				pyright = {},
+				rust_analyzer = {},
+				elixirls = {},
+				emmet_ls = {},
+				dockerls = {},
+				graphql = {},
+				html = {},
+				htmx = {},
+				jinja_lsp = {},
+				markdown_oxide = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -578,18 +586,8 @@ require("lazy").setup({
 					"debugpy",
 					"mypy",
 					"ruff",
-					"pyright",
-					"rust-analyzer",
-					"html-lsp",
-					"elixir-ls",
 					"nixpkgs-fmt",
 					"nil",
-					"html-lsp",
-					"html",
-					"htmlbeautifier",
-					"htmlhint",
-					"htmx-lsp",
-					"htmx",
 				},
 			})
 
