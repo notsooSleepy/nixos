@@ -584,6 +584,12 @@ require("lazy").setup({
 					"elixir-ls",
 					"nixpkgs-fmt",
 					"nil",
+					"html-lsp",
+					"html",
+					"htmlbeautifier",
+					"htmlhint",
+					"htmx-lsp",
+					"htmx",
 				},
 			})
 

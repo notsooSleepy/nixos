@@ -142,6 +142,8 @@
     livebook
     mate.atril
     inotify-tools
+    python3
+    nodejs_21
     ];
   }; 
   # home manager
