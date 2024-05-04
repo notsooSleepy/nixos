@@ -36,7 +36,7 @@ in
   gtk.iconTheme.name = "GruvboxPlus";
   # qt
   qt.enable = true;
-  qt.platformTheme = "gtk";
+  qt.platformTheme.name = "gtk";
   qt.style.name = "adawaita-dark";
     # package to use
   qt.style.package = pkgs.adwaita-qt;
