@@ -28,6 +28,18 @@ return {
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
+		-- require("dap-python").setup("/usr/bin/python")
+		--
+		-- table.insert(require("dap").configurations.python, {
+		-- 	type = "python",
+		-- 	request = "launch",
+		-- 	name = "Module",
+		-- 	console = "integratedTerminal",
+		-- 	module = "src", -- edit this to be your app's main module
+		-- 	cwd = "${workspaceFolder}",
+		-- 	program = "${file}",
+		-- 	justMyCode = false,
+		-- })
 
 		require("mason-nvim-dap").setup({
 			-- Makes a best effort to setup the various debuggers with
@@ -55,6 +67,8 @@ return {
 		vim.keymap.set("n", "<F1>", dap.step_into, { desc = "Debug: Step Into" })
 		vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Debug: Step Over" })
 		vim.keymap.set("n", "<F3>", dap.step_out, { desc = "Debug: Step Out" })
+		vim.keymap.set("n", "<F4>", dapui.open, { desc = "DebugUI: Open" })
+		vim.keymap.set("n", "<F6>", dapui.close, { desc = "DebugUI: Close" })
 		vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
 		vim.keymap.set("n", "<leader>B", function()
 			dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
@@ -83,11 +97,11 @@ return {
 		})
 
 		-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-		vim.keymap.set("n", "<leader><F7>", dapui.toggle, { desc = "Debug: See last session result." })
+		vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
 
 		dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-		dap.listeners.before.event_terminated["dapui_config"] = dapui.close
-		dap.listeners.before.event_exited["dapui_config"] = dapui.close
+		-- dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+		-- dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
 		-- Install golang specific config
 		require("dap-go").setup()
