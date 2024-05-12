@@ -140,7 +140,7 @@ _:
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-2
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o LVDS-1
-      bind = $mainMod, backslash, exec, swww clear 1a1b26
+      bind = $mainMod, backslash, exec, swww clear 111111
 
       bind = $mainMod, bracketright, exec, swaylock --color 000000
 

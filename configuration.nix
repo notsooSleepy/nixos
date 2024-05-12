@@ -144,6 +144,7 @@
     mate.atril
     inotify-tools
     python3
+    python311Packages.pip
     nodejs_22
     go
     ];

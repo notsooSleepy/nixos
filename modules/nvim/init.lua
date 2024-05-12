@@ -541,13 +541,14 @@ require("lazy").setup({
 				pyright = {},
 				rust_analyzer = {},
 				elixirls = {},
-				emmet_ls = {},
-				dockerls = {},
-				graphql = {},
+				cssls = {},
 				html = {},
 				htmx = {},
 				jinja_lsp = {},
-				markdown_oxide = {},
+				gopls = {},
+				tsserver = {},
+				prosemd_lsp = {},
+				zls = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -582,12 +583,6 @@ require("lazy").setup({
 			require("mason").setup({
 				ensure_installed = {
 					"lua-language-server",
-					"black",
-					"debugpy",
-					"mypy",
-					"ruff",
-					"nixpkgs-fmt",
-					"nil",
 				},
 			})
 
@@ -596,6 +591,13 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format lua code
+				"prettierd",
+				"prettier",
+				"black",
+				"sql-formatter",
+				"gofumpt", --end of formaters
+				"pylama", --linters
+				"markdownlint",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -631,11 +633,11 @@ require("lazy").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
+				python = { "black" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
-				-- javascript = { { "prettierd", "prettier" } },
+				javascript = { { "prettierd", "prettier" } },
 			},
 		},
 	},
@@ -673,6 +675,7 @@ require("lazy").setup({
 			--  nvim-cmp does not ship with all sources by default. They are split
 			--  into multiple repos for maintenance purposes.
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 		},
 		config = function()
