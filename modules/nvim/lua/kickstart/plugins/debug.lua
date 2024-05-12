@@ -22,8 +22,8 @@ return {
 		"jay-babu/mason-nvim-dap.nvim",
 
 		-- Add your own debuggers here
-		"leoluz/nvim-dap-go",
 		"mfussenegger/nvim-dap-python",
+		"leoluz/nvim-dap-go",
 	},
 	config = function()
 		local dap = require("dap")
