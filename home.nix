@@ -124,6 +124,9 @@ in
         map ctrl+shift+h next_window
 	'';
     };
+    lf = {
+      enable = true;
+    };
     starship = {
       enable = true;
       enableZshIntegration = true;
@@ -173,6 +176,7 @@ in
     gigalixir
     flyctl
     railway
+    nodePackages_latest.node-red
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
