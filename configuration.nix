@@ -71,13 +71,13 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   # hyprland
-  security.polkit.enable = true;
-  security.pam.services.swaylock = {};
-  programs.hyprland = { 
-  enable = true;
-  xwayland.enable = true;
-  package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  };
+  # security.polkit.enable = true;
+  # security.pam.services.swaylock = {};
+  # programs.hyprland = { 
+  # enable = true;
+  # xwayland.enable = true;
+  # package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  # };
   # thunar
   programs.thunar = {
     enable = true;
