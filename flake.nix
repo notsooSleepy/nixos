@@ -11,12 +11,16 @@
   };
   outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs: {
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs; };
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ 
-          ./desktop.nix
-          inputs.home-manager.nixosModules.default
-        ];
+        homeConfigurations."sleepy@nixos" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            ./desktop.nix
+            inputs.home-manager.nixosModules.default
+            hyprland.homeManagerModules.default {
+              wayland.windowManager.hyprland.enable = true;
+            }
+          ];
+          specialArgs = {inherit inputs; };
       };
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs; };
@@ -27,4 +31,5 @@
         ];
       };
     };
+  };
 }
