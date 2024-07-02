@@ -9,11 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs:
-    let
-      system = "x86_64-linux";
-    in
-    {
+  outputs = { self, nixpkgs, home-manager, hyprland, ... }: {
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs; };
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
