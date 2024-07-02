@@ -55,7 +55,7 @@
       xrandr --output HDMI-A-1 --off
       xrandr --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal
     '';
-    displayManager.defaultSession = "hyprland";
+    # displayManager.defaultSession = "hyprland";
     displayManager = {
       sddm = {
         enable = true;
@@ -194,6 +194,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 
 }

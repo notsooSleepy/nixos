@@ -3,33 +3,29 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     home-manager = {
+      # url = "github:nix-community/home-manager/release-24.05";
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs: {
+  outputs = inputs@{ nixpkgs, home-manager, ... }: {
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
-        homeConfigurations."sleepy@nixos" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            ./desktop.nix
-            inputs.home-manager.nixosModules.default
-            hyprland.homeManagerModules.default {
-              wayland.windowManager.hyprland.enable = true;
-            }
-          ];
-          specialArgs = {inherit inputs; };
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs; };
+        modules = [ 
+          ./desktop.nix
+          inputs.home-manager.nixosModules.default
+        ];
       };
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         specialArgs = {inherit inputs; };
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [ 
           ./laptop.nix
           inputs.home-manager.nixosModules.default
         ];
       };
     };
-  };
 }

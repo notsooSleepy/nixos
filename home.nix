@@ -36,7 +36,7 @@ in
   gtk.iconTheme.name = "GruvboxPlus";
   # qt
   qt.enable = true;
-  qt.platformTheme.name = "gtk";
+  # qt.platformTheme.name = "gtk";
   qt.style.name = "adawaita-dark";
     # package to use
   qt.style.package = pkgs.adwaita-qt;
@@ -84,7 +84,7 @@ in
     zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestion.enable = true;
+      # autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       autocd = true;
@@ -133,15 +133,9 @@ in
     };
   };
   # neovim config
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-      sha256 = "12k14s5fnxl7hwrn3bnvgdqhzfgmv25jh056jih6jp765jb7jw0q";
-    }))
-  ];
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
+    # package = pkgs.neovim-nightly;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -175,7 +169,8 @@ in
     unzip
     rustup
     usermount
-    elixir_1_15
+    elixir_1_17
+    erlang_27
     bat
     exercism
     gigalixir
@@ -190,7 +185,7 @@ in
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "23.11"; # Please read the comment before changing.
   programs.home-manager.enable = true;
 
   }
