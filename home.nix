@@ -133,7 +133,12 @@ in
     };
   };
   # neovim config
-  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+      sha256 = "12k14s5fnxl7hwrn3bnvgdqhzfgmv25jh056jih6jp765jb7jw0q";
+    }))
+  ];
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
@@ -170,7 +175,7 @@ in
     unzip
     rustup
     usermount
-    elixir_1_16
+    elixir_1_15
     bat
     exercism
     gigalixir
