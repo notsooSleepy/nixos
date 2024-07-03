@@ -55,7 +55,7 @@
       xrandr --output HDMI-A-1 --off
       xrandr --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal
     '';
-    displayManager.defaultSession = "hyprland";
+    # displayManager.defaultSession = "hyprland";
     displayManager = {
       sddm = {
         enable = true;
@@ -71,13 +71,13 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   # hyprland
-  security.polkit.enable = true;
-  security.pam.services.swaylock = {};
-  programs.hyprland = { 
-  enable = true;
-  xwayland.enable = true;
-  package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  };
+  # security.polkit.enable = true;
+  # security.pam.services.swaylock = {};
+  # programs.hyprland = { 
+  # enable = true;
+  # xwayland.enable = true;
+  # package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  # };
   # thunar
   programs.thunar = {
     enable = true;
@@ -99,10 +99,15 @@
   # postgresql
   services.postgresql = {
     enable = true;
-    ensureDatabases = [ "mydatabase" ];
-    authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
+    initialScript = pkgs.writeText "init.sql" ''
+      CREATE USER phoenix_user WITH PASSWORD 'postgres';
+      CREATE DATABASE phoenix_dev OWNER phoenix_user;
+      CREATE DATABASE phoenix_test OWNER phoenix_user;
+    '';
+    authentication = ''
+      local   all             postgres                                peer
+      host    all             all             127.0.0.1/32            md5
+      host    all             all             ::1/128                 md5
     '';
   };
   # fonts
@@ -116,6 +121,7 @@
     description = "sleepy";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
+    gnumake
     git
     gh
     google-chrome
@@ -147,6 +153,7 @@
     python311Packages.pip
     nodejs_22
     go
+    calibre
     ];
   }; 
   # home manager
@@ -159,6 +166,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    postgresql
     wget
     git
     libsForQt5.qt5.qtgraphicaleffects

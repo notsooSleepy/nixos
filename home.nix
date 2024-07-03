@@ -36,7 +36,7 @@ in
   gtk.iconTheme.name = "GruvboxPlus";
   # qt
   qt.enable = true;
-  qt.platformTheme.name = "gtk";
+  # qt.platformTheme.name = "gtk";
   qt.style.name = "adawaita-dark";
     # package to use
   qt.style.package = pkgs.adwaita-qt;
@@ -84,7 +84,7 @@ in
     zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestion.enable = true;
+      # autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       autocd = true;
@@ -124,16 +124,18 @@ in
         map ctrl+shift+h next_window
 	'';
     };
+    lf = {
+      enable = true;
+    };
     starship = {
       enable = true;
       enableZshIntegration = true;
     };
   };
   # neovim config
-  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
+    # package = pkgs.neovim-nightly;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -167,12 +169,14 @@ in
     unzip
     rustup
     usermount
-    elixir_1_16
+    elixir_1_17
+    erlang_27
     bat
     exercism
     gigalixir
     flyctl
     railway
+    nodePackages_latest.node-red
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

@@ -4,10 +4,11 @@ _:
     enable = true;
     extraConfig = ''
       exec-once = swww init
-      exec-once = swww img ~/.config/wallpaper1.png -o DP-1
-      exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
-      exec-once = swww img ~/.config/wallpaper3.png -o DP-2
-      exec-once = swww img ~/.config/wallpaper1.png -o LVDS-1
+      # exec-once = swww img ~/.config/wallpaper1.png -o DP-1
+      # exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
+      # exec-once = swww img ~/.config/wallpaper3.png -o DP-2
+      # exec-once = swww img ~/.config/wallpaper1.png -o LVDS-1
+      exec-once = swww clear 111111
 
       exec-once = swayidle timeout 600 'hyprctl dispatcher dpms off && swaylock --color 000000'
 
