@@ -101,7 +101,10 @@ _:
 
       master {
           # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-          new_is_master = true
+      }
+
+      cursor {
+          hide_on_key_press = true
       }
 
       gestures {

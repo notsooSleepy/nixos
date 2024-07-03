@@ -84,13 +84,13 @@ in
     zsh = {
       enable = true;
       enableCompletion = true;
-      # autosuggestion.enable = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       autocd = true;
       shellAliases = {
         ll = "ls -l";
-        update = "sudo nixos-rebuild switch";
+        update = "sudo nixos-rebuild switch --flake";
         f = "cd $(find * -type d | fzf)";
         fn = "fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' --print0 | xargs -0 -o vim";
         n = "nvim";
@@ -146,7 +146,7 @@ in
     extraConfig = ''
       set tabstop=2
       set shiftwidth=2
-      set expandtab     
+      set expandtab
       set smarttab
       set number
       colorscheme gruvbox
