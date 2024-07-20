@@ -11,10 +11,6 @@ in
   home.username = "sleepy";
   home.homeDirectory = "/home/sleepy";
   # cursor
-  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
-  home.file = {
-  ".icons/bibata".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
-  };
   # starship config
   home.file.".config/starship.toml".source = ./modules/impermanence/starship.toml;
   # rofi themes and config
@@ -26,9 +22,6 @@ in
   home.file.".config/wallpaper3.png".source = ./modules/impermanence/wallpaper_right.jpg;
   # gtk---------------------------------
   gtk.enable = true;
-  gtk.cursorTheme.package = pkgs.bibata-cursors;
-  gtk.cursorTheme.name = "Bibata-Modern-Ice";
-
   gtk.theme.package = pkgs.gruvbox-dark-gtk;
   gtk.theme.name = "gruvbox-dark";
 
