@@ -96,7 +96,7 @@
   # blueman for wifi
   services.blueman.enable = true;
   # audio
-  sound.enable = true;
+  # sound.enable = true;
   nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio.enable = true;
   # unfree packages
