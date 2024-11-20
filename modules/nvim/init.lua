@@ -24,6 +24,7 @@
     These are hints about where to find more information about the relevant settings,
     plugins or neovim features used in kickstart.
 --]]
+vim.g.harpoon_log_level = "trace"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed
@@ -191,9 +192,6 @@ require("lazy").setup({
 				row = 0,
 				col = 1,
 			},
-			yadm = {
-				enable = false,
-			},
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
 
@@ -275,14 +273,14 @@ require("lazy").setup({
 			require("which-key").setup()
 
 			-- Document existing key chains
-			require("which-key").register({
-				["<leader>f"] = { name = "[F]ind", _ = "which_key_ignore" },
-				["<leader>l"] = { name = "[L]SP", _ = "which_key_ignore" },
-				["<leader>h"] = { name = "gitsigns_hunks", _ = "which_key_ignore" },
-				["<leader>q"] = { name = "persistance", _ = "which_key_ignore" },
-				["<leader>x"] = { name = "folke/trouble", _ = "which_key_ignore" },
-				["gz"] = { name = "Mini.Surround", _ = "which_key_ignore" },
-				["<leader>hb"] = { name = "blame_line", _ = "which_key_ignore" },
+			require("which-key").add({
+				{ "<leader>f", group = "[F]ind" },
+				{ "<leader>h", group = "gitsigns_hunks" },
+				{ "<leader>hb", group = "blame_line" },
+				{ "<leader>l", group = "[L]SP" },
+				{ "<leader>q", group = "persistance" },
+				{ "<leader>x", group = "folke/trouble" },
+				{ "gz", group = "Mini.Surround" },
 			})
 		end,
 	},
@@ -537,7 +535,6 @@ require("lazy").setup({
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				-- clangd = {},
-				-- gopls = {},
 				pyright = {},
 				rust_analyzer = {},
 				elixirls = {},
@@ -545,7 +542,6 @@ require("lazy").setup({
 				html = { filetypes = { "html", "ex", "heex", "templ" } },
 				htmx = {},
 				jinja_lsp = {},
-				gopls = {},
 				tsserver = {},
 				prosemd_lsp = {},
 				zls = {},
@@ -572,6 +568,44 @@ require("lazy").setup({
 						},
 					},
 				},
+				gopls = {
+					settings = {
+						gopls = {
+							gofumpt = true,
+							codelenses = {
+								gc_details = false,
+								generate = true,
+								regenerate_cgo = true,
+								run_govulncheck = true,
+								test = true,
+								tidy = true,
+								upgrade_dependency = true,
+								vendor = true,
+							},
+							hints = {
+								assignVariableTypes = true,
+								compositeLiteralFields = true,
+								compositeLiteralTypes = true,
+								constantValues = true,
+								functionTypeParameters = true,
+								parameterNames = true,
+								rangeVariableTypes = true,
+							},
+							analyses = {
+								fieldalignment = true,
+								nilness = true,
+								unusedparams = true,
+								unusedwrite = true,
+								useany = true,
+							},
+							usePlaceholders = true,
+							completeUnimported = true,
+							staticcheck = true,
+							directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+							semanticTokens = true,
+						},
+					},
+				},
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -595,8 +629,10 @@ require("lazy").setup({
 				"prettier",
 				"black",
 				"sql-formatter",
+				"goimports",
 				"gofumpt", --end of formaters
 				"pylama", --linters
+				"golangci-lint",
 				"markdownlint",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
@@ -633,6 +669,7 @@ require("lazy").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
+				go = { "goimports", "gofumpt" },
 				python = { "black" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
@@ -768,6 +805,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
 		build = ":TSUpdate",
 		opts = {
 			ensure_installed = {
@@ -820,13 +858,6 @@ require("lazy").setup({
 				"zig",
 			},
 			-- Autoinstall languages that are not installed
-			autotag = {
-				enable = true,
-				enable_rename = true,
-				enable_close = true,
-				enable_close_on_slash = true,
-				filetypes = { "html", "xml", "ex", "heex" },
-			},
 			auto_install = true,
 			highlight = {
 				enable = true,
@@ -840,6 +871,8 @@ require("lazy").setup({
 		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
+			-- Prefer git instead of curl in order to improve connectivity in some environments
+			require("nvim-treesitter.install").prefer_git = true
 			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup(opts)
 

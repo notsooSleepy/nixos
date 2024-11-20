@@ -161,6 +161,8 @@ in
     wget
     unzip
     rustup
+    python312Packages.pip
+    luajitPackages.luarocks
     usermount
     elixir_1_17
     erlang_27

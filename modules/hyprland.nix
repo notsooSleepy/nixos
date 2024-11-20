@@ -6,7 +6,7 @@ _:
       exec-once = swww init
       # exec-once = swww img ~/.config/wallpaper1.png -o DP-1
       # exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
-      # exec-once = swww img ~/.config/wallpaper3.png -o DP-2
+      # exec-once = swww img ~/.config/wallpaper3.png -o DP-3
       # exec-once = swww img ~/.config/wallpaper1.png -o LVDS-1
       exec-once = swww clear 111111
 
@@ -18,13 +18,17 @@ _:
       exec-once = blueman-applet
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitor = DP-1, 1920x1080, 1920x40, 1
-      monitor = HDMI-A-1, 1920x1080, 0x30, 1
-      monitor = DP-2, 1920x1080, 3840x0, 1, transform, 1
+      monitor = DP-1, 1920x1080, 1920x490, 1
+      monitor = HDMI-A-1, 1920x1080, 3840x0, 1, transform, 3
+      monitor = DP-3, 1920x1080@50, 0x490, 1,
 
       workspace = 1, monitor:DP-1, default:true 
-      workspace = 2, monitor:HDMI-A-1, default:true 
-      workspace = 3, monitor:DP-2, dafault:true 
+      workspace = 2, monitor:DP-1,
+      workspace = 3, monitor:DP-1,
+      workspace = 4, monitor:DP-1,
+      workspace = 5, monitor:DP-1,
+      workspace = 6, monitor:HDMI-A-1, default:true 
+      workspace = 7, monitor:DP-2, dafault:true 
 
       # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input {
@@ -71,15 +75,12 @@ _:
             size = 3
             passes = 1
           }
-          drop_shadow = yes
-          shadow_range = 15
-          shadow_render_power = 3
           active_opacity = 1
           inactive_opacity = 1
       }
 
       animations {
-          enabled = false
+          enabled = true
           # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
           bezier=overshot,0.05,0.9,0.1,1.1
       }
@@ -141,7 +142,7 @@ _:
 
       bind = $mainMod, W, killactive, 
       bind = $mainMod SHIFT, Q, exit, 
-      bind = $mainMod, z, pseudo, # dwindle
+      bind = $mainMod, b, pseudo, # dwindle
       bind = $mainMod, x, togglesplit, # dwindle
       bind = $mainMod, c, togglefloating, 
       bind = $mainMod, v, fullscreen, 0
@@ -151,8 +152,8 @@ _:
       bind = $mainMod, L, movefocus, r
       bind = $mainMod, K, movefocus, u
       bind = $mainMod, J, movefocus, d
-      bind = $mainMod, Tab, cyclenext,          # change focus to another window
-      bind = $mainMod, Tab, bringactivetotop,   # bring it to the top 
+      bind = $mainMod, T, cyclenext,          # change focus to another window
+      bind = $mainMod, T, bringactivetotop,   # bring it to the top 
 
       bind = $mainMod CTRL, H, movewindow, l
       bind = $mainMod CTRL, L, movewindow, r
@@ -171,9 +172,15 @@ _:
       bind = $mainMod, 1, workspace, 1
       bind = $mainMod, 2, workspace, 2
       bind = $mainMod, 3, workspace, 3
-      bind = $mainMod, grave, workspace, m+1
-      bind = $mainMod SHIFT, grave, workspace, r+1
-      bind = $mainMod SHIFT, tab, movetoworkspace, r+1
+      bind = $mainMod, 4, workspace, 4
+      bind = $mainMod, 5, workspace, 5
+      bind = $mainMod, 6, workspace, 6
+      bind = $mainMod, 7, workspace, 7
+      bind = $mainMod, 8, workspace, 8
+      bind = $mainMod, 9, workspace, 9
+      bind = $mainMod, SPACE, workspace, m+1
+      bind = $mainMod CTRL, SPACE, workspace, r+1
+      bind = $mainMod CTRL, INSERT, movetoworkspace, r+1
     '';
   };
 }
