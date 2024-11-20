@@ -2,6 +2,10 @@ return {
 	-- TODO:
 	-- Check if you need more cmp sources
 	{
+		"notsooSleepy/pone.nvim",
+		opts = { name = "sleepy" },
+	},
+	{
 		"norcalli/nvim-colorizer.lua",
 		event = "VeryLazy",
 		config = function()
@@ -315,7 +319,7 @@ return {
 				},
 			})
 
-			-- require("mini.pairs").setup()
+			require("mini.pairs").setup()
 			require("mini.indentscope").setup()
 
 			-- ... and there is more!

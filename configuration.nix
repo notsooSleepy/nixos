@@ -55,12 +55,6 @@
   # display manager
   services = {
     xserver.enable = true;
-    xserver.displayManager.setupCommands = ''
-      xrandr --output DP-2 --off
-      xrandr --output HDMI-A-1 --off
-      xrandr --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal
-    '';
-    # displayManager.defaultSession = "hyprland";
     displayManager = {
       sddm = {
         enable = true;
@@ -96,9 +90,9 @@
   # blueman for wifi
   services.blueman.enable = true;
   # audio
-  sound.enable = true;
+  # sound.enable = true;
   nixpkgs.config.pulseaudio = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = false;
   # unfree packages
   nixpkgs.config.allowUnfree = true;
   # postgresql
@@ -126,6 +120,7 @@
     description = "sleepy";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
+    gcc
     gnumake
     git
     gh
@@ -158,7 +153,9 @@
     python311Packages.pip
     nodejs_22
     go
-    calibre
+    tree-sitter
+    cargo
+    lua
     ];
   }; 
   # home manager
