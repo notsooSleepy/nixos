@@ -129,16 +129,16 @@ _:
 
       bind = $mainMod, s, exec, rofi -show drun - config ~/.config/rofi/config.rasi
 
-      bind = $mainMod SHIFT, s, exec, grimblast --notify copy area
-      bind = $mainMod SHIFT, d, exec, grimblast --notify save area
+      bind = $mainMod ALT, s, exec, grimblast --notify copy area
+      bind = $mainMod ALT, d, exec, grimblast --notify save area
 
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o DP-1
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1
-      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-2
+      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-3
       bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o LVDS-1
       bind = $mainMod, backslash, exec, swww clear 111111
 
-      bind = $mainMod, bracketright, exec, swaylock --color 000000
+      bind = $mainMod, bracketleft, exec, swaylock --color 000000
 
       bind = $mainMod, W, killactive, 
       bind = $mainMod SHIFT, Q, exit, 
@@ -155,10 +155,10 @@ _:
       bind = $mainMod, T, cyclenext,          # change focus to another window
       bind = $mainMod, T, bringactivetotop,   # bring it to the top 
 
-      bind = $mainMod CTRL, H, movewindow, l
-      bind = $mainMod CTRL, L, movewindow, r
-      bind = $mainMod CTRL, K, movewindow, u
-      bind = $mainMod CTRL, J, movewindow, d
+      bind = $mainMod ALT, H, movewindow, l
+      bind = $mainMod ALT, L, movewindow, r
+      bind = $mainMod ALT, K, movewindow, u
+      bind = $mainMod ALT, J, movewindow, d
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1
@@ -178,9 +178,9 @@ _:
       bind = $mainMod, 7, workspace, 7
       bind = $mainMod, 8, workspace, 8
       bind = $mainMod, 9, workspace, 9
-      bind = $mainMod, SPACE, workspace, m+1
-      bind = $mainMod CTRL, SPACE, workspace, r+1
-      bind = $mainMod CTRL, INSERT, movetoworkspace, r+1
+      bind = $mainMod, TAB, workspace, m+1
+      bind = $mainMod ALT, TAB, workspace, r+1
+      bind = $mainMod, GRAVE, movetoworkspace, r+1
     '';
   };
 }
