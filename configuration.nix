@@ -125,6 +125,7 @@
     git
     gh
     google-chrome
+    vivaldi
     kitty
     rofi-wayland
     pavucontrol

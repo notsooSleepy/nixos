@@ -39,7 +39,7 @@ _:
           kb_options = ctrl:nocaps
           repeat_delay = 300
           repeat_rate = 50
-          follow_mouse = 3
+          follow_mouse = 1
           touchpad {
             natural_scroll = no
             disable_while_typing = true
