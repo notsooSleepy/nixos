@@ -95,6 +95,13 @@
   hardware.pulseaudio.enable = false;
   # unfree packages
   nixpkgs.config.allowUnfree = true;
+  # steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+};
   # postgresql
   services.postgresql = {
     enable = true;
@@ -151,7 +158,9 @@
     mate.atril
     inotify-tools
     python3
-    python311Packages.pip
+    python313Full
+    python312Packages.pytest
+    python312Packages.pip
     nodejs_22
     go
     tree-sitter
