@@ -21,8 +21,8 @@ return {
 		"numToStr/FTerm.nvim",
 		config = function()
 			require("FTerm").setup({
-				border = "none",
-				blend = 60,
+				border = "double",
+				blend = 20,
 				dimensions = {
 					height = 0.9,
 					width = 0.9,
@@ -110,16 +110,6 @@ return {
 	    },
 	},
 	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
-	},
-	{
 		"folke/persistence.nvim",
 		event = "BufReadPre",
 		opts = { options = vim.opt.sessionoptions:get() },
@@ -173,7 +163,8 @@ return {
 	},
 	{
 		"folke/trouble.nvim",
-		branch = "dev", -- IMPORTANT!
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
 		keys = {
 			{
 				"<leader>xx",
@@ -186,12 +177,12 @@ return {
 				desc = "Buffer Diagnostics (Trouble)",
 			},
 			{
-				"<leader>xs",
+				"<leader>cs",
 				"<cmd>Trouble symbols toggle focus=false<cr>",
 				desc = "Symbols (Trouble)",
 			},
 			{
-				"<leader>xl",
+				"<leader>cl",
 				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 				desc = "LSP Definitions / references / ... (Trouble)",
 			},
@@ -206,7 +197,6 @@ return {
 				desc = "Quickfix List (Trouble)",
 			},
 		},
-		opts = {}, -- for default options, refer to the configuration section for custom setup.
 	},
 	{
 		"folke/noice.nvim",
@@ -264,62 +254,7 @@ return {
 					update_n_lines = "gzn", -- Update `n_lines`
 				},
 			})
-			require("mini.files").setup({
-
-				vim.keymap.set("n", "<leader>fm", function()
-					MiniFiles.open()
-				end, { desc = "Open MiniFiles" }),
-
-				-- Customization of shown content
-				content = {
-					-- Predicate for which file system entries to show
-					filter = nil,
-					-- What prefix to show to the left of file system entry
-					prefix = nil,
-					-- In which order to show file system entries
-					sort = nil,
-				},
-
-				-- Module mappings created only inside explorer.
-				-- Use `''` (empty string) to not create one.
-				mappings = {
-					close = "q",
-					go_in = "l",
-					go_in_plus = "L",
-					go_out = "h",
-					go_out_plus = "H",
-					reset = "<BS>",
-					reveal_cwd = "@",
-					show_help = "g?",
-					synchronize = "=",
-					trim_left = "<",
-					trim_right = ">",
-				},
-
-				-- General options
-				options = {
-					-- Whether to delete permanently or move into module-specific trash
-					permanent_delete = true,
-					-- Whether to use for editing directories
-					use_as_default_explorer = true,
-				},
-
-				-- Customization of explorer windows
-				windows = {
-					-- Maximum number of windows to show side by side
-					max_number = math.huge,
-					-- Whether to show preview of file/directory under cursor
-					preview = false,
-					-- Width of focused window
-					width_focus = 50,
-					-- Width of non-focused window
-					width_nofocus = 15,
-					-- Width of preview window
-					width_preview = 25,
-				},
-			})
-
-			require("mini.pairs").setup()
+			-- require("mini.pairs").setup()
 			require("mini.indentscope").setup()
 
 			-- ... and there is more!

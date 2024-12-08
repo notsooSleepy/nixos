@@ -3,7 +3,7 @@ _:
   wayland.windowManager.hyprland = {
     enable = true;
     extraConfig = ''
-      exec-once = swww init
+      exec-once = sleep 5 && swww-daemon && sleep 5
       # exec-once = swww img ~/.config/wallpaper1.png -o DP-1
       # exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
       # exec-once = swww img ~/.config/wallpaper3.png -o DP-3
@@ -18,9 +18,9 @@ _:
       exec-once = blueman-applet
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitor = DP-1, 1920x1080, 1920x490, 1
-      monitor = HDMI-A-1, 1920x1080, 3840x0, 1, transform, 3
-      monitor = DP-3, 1920x1080@50, 0x490, 1,
+      monitor = DP-1, 1920x1080, 1080x610, 1
+      monitor = HDMI-A-1, 1920x1080, 3000x0, 1, transform, 3
+      monitor = DP-3, 1920x1080@50, 0x0, 1, transform, 1
 
       workspace = 1, monitor:DP-1, default:true 
       workspace = 2, monitor:DP-1,
@@ -28,7 +28,7 @@ _:
       workspace = 4, monitor:DP-1,
       workspace = 5, monitor:DP-1,
       workspace = 6, monitor:HDMI-A-1, default:true 
-      workspace = 7, monitor:DP-2, dafault:true 
+      workspace = 7, monitor:DP-3, dafault:true 
 
       # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input {
@@ -39,7 +39,7 @@ _:
           kb_options = ctrl:nocaps
           repeat_delay = 300
           repeat_rate = 50
-          follow_mouse = 3
+          follow_mouse = 1
           touchpad {
             natural_scroll = no
             disable_while_typing = true

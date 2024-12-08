@@ -93,8 +93,28 @@
   # sound.enable = true;
   nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio.enable = false;
+  # flatpack
+  services.flatpak.enable = true;
+  systemd.services.flatpak-repo = {
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.flatpak ];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
+  # wacom tablet
+  hardware.opentabletdriver.enable = true;
+  hardware.opentabletdriver.daemon.enable = true;
   # unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
+  # steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+};
   # postgresql
   services.postgresql = {
     enable = true;
@@ -125,6 +145,7 @@
     git
     gh
     google-chrome
+    vivaldi
     kitty
     rofi-wayland
     pavucontrol
@@ -150,12 +171,15 @@
     mate.atril
     inotify-tools
     python3
-    python311Packages.pip
+    python313Full
+    python312Packages.pytest
+    python312Packages.pip
     nodejs_22
     go
     tree-sitter
     cargo
     lua
+    jdk
     ];
   }; 
   # home manager
