@@ -93,8 +93,21 @@
   # sound.enable = true;
   nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio.enable = false;
+  # flatpack
+  services.flatpak.enable = true;
+  systemd.services.flatpak-repo = {
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.flatpak ];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
+  # wacom tablet
+  hardware.opentabletdriver.enable = true;
+  hardware.opentabletdriver.daemon.enable = true;
   # unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
   # steam
   programs.steam = {
     enable = true;
@@ -166,6 +179,7 @@
     tree-sitter
     cargo
     lua
+    jdk
     ];
   }; 
   # home manager
