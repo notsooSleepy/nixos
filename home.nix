@@ -152,6 +152,11 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+  # java for princeton algorythms
+  home.file."/usr/local/" = {
+    source = ./modules/impermanence/java/;
+    recursive = true;
+  };
   # -----------------------------
   home.packages = with pkgs; [
     ripgrep
@@ -173,6 +178,8 @@ in
     railway
     nodePackages_latest.node-red
     feh
+    jdk
+    jdk11
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

@@ -179,7 +179,6 @@
     tree-sitter
     cargo
     lua
-    jdk
     ];
   }; 
   # home manager
