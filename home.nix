@@ -31,7 +31,7 @@ in
   qt.enable = true;
   # qt.platformTheme.name = "gtk";
   qt.style.name = "adawaita-dark";
-    # package to use
+  # package to use
   qt.style.package = pkgs.adwaita-qt;
   # ------------------------------------
   # network-manager-applet
@@ -152,11 +152,6 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-  # java for princeton algorythms
-  home.file."/usr/local/" = {
-    source = ./modules/impermanence/java/;
-    recursive = true;
-  };
   # -----------------------------
   home.packages = with pkgs; [
     ripgrep
@@ -178,8 +173,6 @@ in
     railway
     nodePackages_latest.node-red
     feh
-    jdk
-    jdk11
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
