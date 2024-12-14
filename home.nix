@@ -40,6 +40,9 @@ in
   services.blueman-applet.enable = true;
   # dunst
   services.dunst.enable = true;
+  # unfree packages
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
   # ------------------------------------
   # programs
   programs = {
@@ -154,25 +157,16 @@ in
   };
   # -----------------------------
   home.packages = with pkgs; [
-    ripgrep
-    fd
-    lua-language-server
-    wl-clipboard
-    wget
-    unzip
-    rustup
-    python312Packages.pip
-    luajitPackages.luarocks
-    usermount
-    elixir_1_17
-    erlang_27
-    bat
+  # ------------------------------------
+    obsidian
+    mpv-unwrapped
+    ani-cli
+  # ------------------------------------
     exercism
     gigalixir
     flyctl
     railway
-    nodePackages_latest.node-red
-    feh
+  # ------------------------------------
   ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
