@@ -11,11 +11,19 @@
     };
   };
   outputs = inputs@{ nixpkgs, home-manager, ... }: {
-      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.desktop_1 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs; };
         modules = [ 
-          ./desktop.nix
+          ./desktop_1.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+      nixosConfigurations.desktop_2 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs; };
+        modules = [ 
+          ./desktop_2.nix
           inputs.home-manager.nixosModules.default
         ];
       };

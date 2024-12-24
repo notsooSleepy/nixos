@@ -4,7 +4,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration_desktop.nix
+      ./hardware-configuration_desktop_2.nix
       ./configuration.nix
       inputs.home-manager.nixosModules.default
     ];
@@ -12,6 +12,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sdc";
   boot.loader.grub.useOSProber = true;
+  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -33,7 +34,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).

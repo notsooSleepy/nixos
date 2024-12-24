@@ -16,19 +16,20 @@ _:
 
       exec-once = nm-applet --indicator
       exec-once = blueman-applet
+      # exec-once = barrier
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = DP-1, 1920x1080, 1080x610, 1
       monitor = HDMI-A-1, 1920x1080, 3000x0, 1, transform, 3
       monitor = DP-3, 1920x1080@50, 0x0, 1, transform, 1
 
-      workspace = 1, monitor:DP-1, default:true 
+      workspace = 1, monitor:DP-1, default:true, layoutopt:orientation:center
       workspace = 2, monitor:DP-1,
       workspace = 3, monitor:DP-1,
       workspace = 4, monitor:DP-1,
       workspace = 5, monitor:DP-1,
-      workspace = 6, monitor:HDMI-A-1, default:true 
-      workspace = 7, monitor:DP-3, dafault:true 
+      workspace = 6, monitor:HDMI-A-1, default:true, layoutopt:orientation:bottom
+      workspace = 7, monitor:DP-3, dafault:true,layoutopt:orientation:bottom
 
       # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input {
@@ -54,7 +55,7 @@ _:
           gaps_in = 2
           gaps_out = 5
           border_size = 1
-          layout = dwindle
+          layout = master
           col.active_border = rgb(cc241d) rgb(d79921) 45deg
           col.inactive_border = rgb(1d2021)
       }
@@ -87,12 +88,14 @@ _:
 
       dwindle {
           # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-          preserve_split = yes # you probably want this
+          pseudotile = false
+          preserve_split = true # you probably want this
       }
 
       master {
           # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+          allow_small_split = true
+          mfact = 0.5
       }
 
       cursor {
@@ -109,41 +112,42 @@ _:
           workspace_swipe_cancel_ratio = 0.85
       }
 
-      # Example windowrule v1
-      # windowrule = float, ^(kitty)$
-      # Example windowrule v2
-      # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-
-
-      windowrule = opacity 1.0 override 1.0 override,^(kitty)$ # set opacity to 1.0 active and 0.5 inactive for kitty
-      # windowrule = float,^(kitty)$ 
-      # windowrule = noinitialfocus,^(kitty)$ 
-
+      # Windowrules
+      windowrule = opacity 1.0 override 0.8 override,^(kitty)$ # set opacity to 1.0 active and 0.5 inactive for kitty
 
       # See https://wiki.hyprland.org/Configuring/Keywords/ for more
       $mainMod = SUPER
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-      bind = $mainMod , RETURN, exec, kitty
-      bind = $mainMod , apostrophe, exec, kitty nvim
+      # Layout switcher
+      bind = $mainMod, bracketleft, exec, hyprctl keyword general:layout "dwindle"
+      bind = $mainMod, bracketleft, exec, notify-send "layout" "dwindle" -t 500
+      bind = $mainMod, bracketright, exec, hyprctl keyword general:layout "master"
+      bind = $mainMod, bracketright, exec, notify-send "layout" "master" -t 500
 
+      # Kitty
+      bind = $mainMod, RETURN, exec, kitty
+      bind = $mainMod, apostrophe, exec, kitty nvim
+      bind = $mainMod, semicolon, exec, kitty lf
+
+      # Rofi
       bind = $mainMod, s, exec, rofi -show drun - config ~/.config/rofi/config.rasi
 
+      # Grimblast
       bind = $mainMod ALT, s, exec, grimblast --notify copy area
       bind = $mainMod ALT, d, exec, grimblast --notify save area
-
-      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o DP-1
-      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1
-      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-3
-      bind = $mainMod SHIFT, backslash, exec, swww img ~/.config/wallpaper1.png -o LVDS-1
+      # Wallpapers
+      bind = $mainMod ALT, backslash, exec, swww img ~/.config/wallpaper1.png -o DP-1
+      bind = $mainMod ALT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1
+      bind = $mainMod ALT, backslash, exec, swww img ~/.config/wallpaper3.png -o DP-3
+      bind = $mainMod ALT, backslash, exec, swww img ~/.config/wallpaper1.png -o LVDS-1
       bind = $mainMod, backslash, exec, swww clear 111111
 
-      bind = $mainMod, bracketleft, exec, swaylock --color 000000
+      bind = $mainMod, minus, exec, swaylock --color 000000
 
       bind = $mainMod, W, killactive, 
       bind = $mainMod SHIFT, Q, exit, 
-      bind = $mainMod, b, pseudo, # dwindle
-      bind = $mainMod, x, togglesplit, # dwindle
+
       bind = $mainMod, c, togglefloating, 
       bind = $mainMod, v, fullscreen, 0
 
@@ -152,9 +156,8 @@ _:
       bind = $mainMod, L, movefocus, r
       bind = $mainMod, K, movefocus, u
       bind = $mainMod, J, movefocus, d
-      bind = $mainMod, T, cyclenext,          # change focus to another window
-      bind = $mainMod, T, bringactivetotop,   # bring it to the top 
 
+      # Move window
       bind = $mainMod ALT, H, movewindow, l
       bind = $mainMod ALT, L, movewindow, r
       bind = $mainMod ALT, K, movewindow, u
@@ -168,6 +171,25 @@ _:
       bindm = $mainMod, mouse:272, movewindow
       bindm = $mainMod, mouse:273, resizewindow
 
+      # Resize with keyboard
+      bind = $mainMod, left, resizeactive, -100 0
+      bind = $mainMod, right, resizeactive, 100 0
+      bind = $mainMod, up, resizeactive, 0 -100
+      bind = $mainMod, down, resizeactive, 0 100
+
+      # Move focus
+      bind = $mainMod, z, layoutmsg, swapwithmaster auto
+      bind = $mainMod, z, pseudo
+      bind = $mainMod, x, layoutmsg, focusmaster master
+      bind = $mainMod, x, togglesplit
+      bind = $mainMod, q, layoutmsg, addmaster
+      bind = $mainMod, a, focusurgentorlast
+      bind = $mainMod, t, cyclenext,          # change focus to another window
+      bind = $mainMod, t, bringactivetotop,   # bring it to the top 
+      bind = $mainMod, TAB, workspace, m+1
+      bind = $mainMod, GRAVE, movetoworkspace, r+1
+      bind = $mainMod ALT, TAB, movetoworkspacesilent, r+1
+
       # Monitors
       bind = $mainMod, 1, workspace, 1
       bind = $mainMod, 2, workspace, 2
@@ -178,9 +200,6 @@ _:
       bind = $mainMod, 7, workspace, 7
       bind = $mainMod, 8, workspace, 8
       bind = $mainMod, 9, workspace, 9
-      bind = $mainMod, TAB, workspace, m+1
-      bind = $mainMod ALT, TAB, workspace, r+1
-      bind = $mainMod, GRAVE, movetoworkspace, r+1
     '';
   };
 }

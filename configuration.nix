@@ -41,6 +41,15 @@
   # audio
   nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    jack.enable = true;
+  };
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -133,6 +142,8 @@
     networkmanagerapplet
     libappindicator-gtk3
     inotify-tools
+    libnotify
+    glib
   # ---------------
     fira-code
   # ------------------------------------
@@ -148,7 +159,10 @@
     fd
     wl-clipboard
     wget
+    zip
+    xz
     unzip
+    p7zip
     usermount
   # ------------------------------------
     google-chrome
@@ -156,11 +170,11 @@
     kitty
     qbittorrent
     mate.atril
+    barrier # KVM software
   # ------------------------------------
     rofi-wayland
     swww
     feh
-  # ------------------------------------
   # ------------------------------------
     rustup
     cargo
@@ -169,6 +183,7 @@
     python313Full
     python312Packages.pytest
     python312Packages.pip
+    poetry
   # ---------------
     elixir_1_17
     erlang_27
