@@ -19,12 +19,12 @@ _:
       # exec-once = barrier
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitor = DP-1, 5120x1440@239.76, 0x0, 1
+      monitor = DP-1, 1920x1080, 0x0, 1
       monitor = HDMI-A-1, 1920x1080, 3000x0, 1, transform, 3
       monitor = DP-3, 1920x1080@50, 0x0, 1, transform, 1
-      monitor = DP-4, 5120x1440@239.76, 0x0, 1
+      monitor = desc:Samsung Electric Company Odyssey G95C HNTX400441, 5120x1440@239.76, 0x0, 1
 
-      workspace = 1, monitor:desc:Samsung Electric Company Odyssey G95C, default:true, layoutopt:orientation:center
+      workspace = 1, monitor:desc:Samsung Electric Company Odyssey G95C HNTX400441, default:true, layoutopt:orientation:center
       workspace = 5, monitor:desc:DP-1, default:true, layoutopt:orientation:center
       workspace = 6, monitor:HDMI-A-1, default:true, layoutopt:orientation:bottom
       workspace = 7, monitor:DP-3, dafault:true,layoutopt:orientation:bottom
