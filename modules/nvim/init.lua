@@ -648,8 +648,6 @@ require("lazy").setup({
 				elixirls = {},
 				cssls = {},
 				html = { filetypes = { "html", "ex", "heex", "templ" } },
-				htmx = {},
-				jinja_lsp = {},
 				prosemd_lsp = {},
 				zls = {},
 				jdtls = {},
