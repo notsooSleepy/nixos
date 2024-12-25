@@ -19,15 +19,13 @@ _:
       # exec-once = barrier
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitor = DP-1, 1920x1080, 1080x610, 1
+      monitor = DP-1, 5120x1440@239.76, 0x0, 1
       monitor = HDMI-A-1, 1920x1080, 3000x0, 1, transform, 3
       monitor = DP-3, 1920x1080@50, 0x0, 1, transform, 1
+      monitor = DP-4, 5120x1440@239.76, 0x0, 1
 
-      workspace = 1, monitor:DP-1, default:true, layoutopt:orientation:center
-      workspace = 2, monitor:DP-1,
-      workspace = 3, monitor:DP-1,
-      workspace = 4, monitor:DP-1,
-      workspace = 5, monitor:DP-1,
+      workspace = 1, monitor:desc:Samsung Electric Company Odyssey G95C, default:true, layoutopt:orientation:center
+      workspace = 5, monitor:desc:DP-1, default:true, layoutopt:orientation:center
       workspace = 6, monitor:HDMI-A-1, default:true, layoutopt:orientation:bottom
       workspace = 7, monitor:DP-3, dafault:true,layoutopt:orientation:bottom
 
@@ -200,6 +198,17 @@ _:
       bind = $mainMod, 7, workspace, 7
       bind = $mainMod, 8, workspace, 8
       bind = $mainMod, 9, workspace, 9
+
+      # Move to monitor
+      bind = $mainMod ALT, 1, movetoworkspace, 1
+      bind = $mainMod ALT, 2, movetoworkspace, 2
+      bind = $mainMod ALT, 3, movetoworkspace, 3
+      bind = $mainMod ALT, 4, movetoworkspace, 4
+      bind = $mainMod ALT, 5, movetoworkspace, 5
+      bind = $mainMod ALT, 6, movetoworkspace, 6
+      bind = $mainMod ALT, 7, movetoworkspace, 7
+      bind = $mainMod ALT, 8, movetoworkspace, 8
+      bind = $mainMod ALT, 9, movetoworkspace, 9
     '';
   };
 }
