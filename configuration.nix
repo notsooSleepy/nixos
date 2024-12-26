@@ -119,9 +119,8 @@
 };
   # fonts
   fonts.packages = with pkgs; [
-  nerdfonts
   fira-code
-  ];
+  ]++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sleepy = {
     isNormalUser = true;
