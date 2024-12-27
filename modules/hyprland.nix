@@ -4,6 +4,7 @@ _:
     enable = true;
     extraConfig = ''
       exec-once = sleep 5 && swww-daemon && sleep 5
+      exec-once = swww img ~/.config/wallpaper4.png -o DP-1
       # exec-once = swww img ~/.config/wallpaper1.png -o DP-1
       # exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
       # exec-once = swww img ~/.config/wallpaper3.png -o DP-3
@@ -134,6 +135,7 @@ _:
       # Grimblast
       bind = $mainMod ALT, s, exec, grimblast --notify copy area
       bind = $mainMod ALT, d, exec, grimblast --notify save area
+
       # Wallpapers
       bind = $mainMod ALT, backslash, exec, swww img ~/.config/wallpaper1.png -o DP-1
       bind = $mainMod ALT, backslash, exec, swww img ~/.config/wallpaper2.png -o HDMI-A-1

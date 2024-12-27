@@ -20,6 +20,7 @@ in
   home.file.".config/wallpaper1.png".source = ./modules/impermanence/wallpaper_center.jpg;
   home.file.".config/wallpaper2.png".source = ./modules/impermanence/wallpaper_left.jpg;
   home.file.".config/wallpaper3.png".source = ./modules/impermanence/wallpaper_right.jpg;
+  home.file.".config/wallpaper4.png".source = ./modules/impermanence/wallpaper_4.jpeg;
   # gtk---------------------------------
   gtk.enable = true;
   gtk.theme.package = pkgs.gruvbox-dark-gtk;
@@ -100,7 +101,7 @@ in
     zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestion.enable = true;
+      autosuggestion.enable = false;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       autocd = true;
@@ -177,6 +178,10 @@ in
   };
   # -----------------------------
   home.packages = with pkgs; [
+    # zen browser workaround
+    inputs.zen-browser.packages."${pkgs.system}".default
+    # qtutils workaround
+    inputs.hyprland-qtutils.packages."${pkgs.system}".default
   # ------------------------------------
     obsidian
     mpv-unwrapped
