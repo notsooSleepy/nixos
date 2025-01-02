@@ -131,7 +131,7 @@ in
       font.package = pkgs.fira-code;
       font.name = "FiraCode";
       font.size = 12;
-      theme = "Tokyo Night";
+      theme = "Tokyo Night Storm";
       shellIntegration.enableZshIntegration = true;
       settings = {
         scrollback_lines = 10000;
@@ -143,6 +143,15 @@ in
     };
     lf = {
       enable = true;
+      keybindings = {
+        d = "";
+        dt = "trash";
+        dd = "delete";
+        dD = "$rm -rf $f";
+        gi = "$n $f";
+        gl = "follow-link";
+        x = "cut";
+      };
     };
     starship = {
       enable = true;
@@ -186,6 +195,8 @@ in
     obsidian
     mpv-unwrapped
     ani-cli
+    youtube-music
+    discord
   # ------------------------------------
     exercism
     gigalixir

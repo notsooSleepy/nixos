@@ -73,7 +73,8 @@
     displayManager = {
       sddm = {
         enable = true;
-        theme = "${import ./modules/sddm-theme.nix { inherit pkgs; }}";
+        theme = "catppuccin-sddm-corners";
+        # theme = "${import ./modules/sddm-theme.nix { inherit pkgs; }}";
         wayland.enable = true;
       };
     };
@@ -130,6 +131,7 @@
   # ------------------------------------
     gcc
     gnumake
+    efibootmgr
   # ---------------
     pavucontrol
     wireplumber
@@ -214,6 +216,8 @@
     wget
     git
     libsForQt5.qt5.qtgraphicaleffects
+    catppuccin-sddm-corners
+    catppuccin
   ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
