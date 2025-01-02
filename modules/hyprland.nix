@@ -3,21 +3,20 @@ _:
   wayland.windowManager.hyprland = {
     enable = true;
     extraConfig = ''
-      exec-once = sleep 5 && swww-daemon && sleep 5
-      exec-once = swww img ~/.config/wallpaper4.png -o DP-1
-      # exec-once = swww img ~/.config/wallpaper1.png -o DP-1
-      # exec-once = swww img ~/.config/wallpaper2.png -o HDMI-A-1
-      # exec-once = swww img ~/.config/wallpaper3.png -o DP-3
-      # exec-once = swww img ~/.config/wallpaper1.png -o LVDS-1
-      exec-once = swww clear 111111
-
+      exec-once = sleep 5 && swww-daemon
       exec-once = swayidle timeout 600 'hyprctl dispatcher dpms off && swaylock --color 000000'
-
       exec-once = waybar
-
-      exec-once = nm-applet --indicator
-      exec-once = blueman-applet
+      exec-once = sleep 5 && nm-applet --indicator
+      exec-once = sleep 5 && blueman-applet
       # exec-once = barrier
+      # exec-once = [workspace special:music silent; float; move 100%-w-10 100%-w-5; size 2200 97%] youtube-music
+
+      # Special workspace processes
+      exec-once = [workspace special:music silent] youtube-music
+      exec-once = discord
+      exec-once = sleep 4 && hyprctl dispatch focuswindow class:discord && hyprctl dispatch movetoworkspacesilent special:music &
+      exec-once = [workspace special:term silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty
+      exec-once = [workspace special:btop silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty btop
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = DP-1, 1920x1080, 0x0, 1
@@ -25,6 +24,7 @@ _:
       monitor = DP-3, 1920x1080@50, 0x0, 1, transform, 1
       monitor = desc:Samsung Electric Company Odyssey G95C HNTX400441, 5120x1440@239.76, 0x0, 1
 
+      # Workspaces
       workspace = 1, monitor:desc:Samsung Electric Company Odyssey G95C HNTX400441, default:true, layoutopt:orientation:center
       workspace = 5, monitor:desc:DP-1, default:true, layoutopt:orientation:center
       workspace = 6, monitor:HDMI-A-1, default:true, layoutopt:orientation:bottom
@@ -69,7 +69,7 @@ _:
       decoration {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-          rounding = 3
+          rounding = 10
           blur {
             enabled = true
             size = 3
@@ -82,13 +82,17 @@ _:
       animations {
           enabled = true
           # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-          bezier=overshot,0.05,0.9,0.1,1.1
+          bezier=overshot, 0.05, 0.9, 0.1, 1.1
+          bezier=cubic-bezier, 0.785, 0.135, 0.15, 0.86
+          animation = windows, 1, 5, cubic-bezier, slide
+          animation = workspaces, 1, 5, cubic-bezier, slide
       }
 
       dwindle {
           # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
           pseudotile = false
           preserve_split = true # you probably want this
+          special_scale_factor = 0.5
       }
 
       master {
@@ -112,12 +116,14 @@ _:
       }
 
       # Windowrules
+      # xprop to find 
       windowrule = opacity 1.0 override 0.8 override,^(kitty)$ # set opacity to 1.0 active and 0.5 inactive for kitty
+      windowrule = opacity 1.0 override 0.8 override,^(zen-beta)$ # set opacity to 1.0 active and 0.5 inactive for zen browser
+      windowrule = opacity 1.0 override 0.8 override,^(discord)$ # set opacity to 1.0 active and 0.5 inactive for discord
+      windowrule = workspace special:music
 
       # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-      $mainMod = SUPER
-
-      # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+      $mainMod = SUPER # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
       # Layout switcher
       bind = $mainMod, bracketleft, exec, hyprctl keyword general:layout "dwindle"
       bind = $mainMod, bracketleft, exec, notify-send "layout" "dwindle" -t 500
@@ -189,6 +195,19 @@ _:
       bind = $mainMod, TAB, workspace, m+1
       bind = $mainMod, GRAVE, movetoworkspace, r+1
       bind = $mainMod ALT, TAB, movetoworkspacesilent, r+1
+
+      # Special workspace
+      bind = $mainMod ALT, f, movetoworkspace, special
+      bind = $mainMod, f, togglespecialworkspace
+      # bind = $mainMod SHIFT, d, exec, [workspace special:music silent; float; move 100%-w-10 100%-w-5; size 2200 97%] youtube-music
+      bind = $mainMod SHIFT, d, exec, [workspace special:music silent] youtube-music
+      bind = $mainMod SHIFT, d, exec, discord
+      bind = $mainMod SHIFT, d, exec, sleep 3 && hyprctl dispatch focuswindow class:discord && hyprctl dispatch movetoworkspacesilent special:music &
+      bind = $mainMod, d, exec, hyprctl dispatch togglespecialworkspace music
+      bind = $mainMod SHIFT, r, exec, [workspace special:term silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty
+      bind = $mainMod, r, exec, hyprctl dispatch togglespecialworkspace term
+      bind = $mainMod SHIFT, g, exec, [workspace special:btop silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty btop
+      bind = $mainMod, g, exec, hyprctl dispatch togglespecialworkspace btop
 
       # Monitors
       bind = $mainMod, 1, workspace, 1
