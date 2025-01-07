@@ -50,6 +50,20 @@
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
   };
+  # Virtualisation
+  programs.dconf.enable = true;
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
+  services.spice-vdagentd.enable = true;
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -57,8 +71,8 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
   #shell
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  # programs.zsh.enable = true;
+  # users.defaultUserShell = pkgs.zsh;
   # hyprland
   security.polkit.enable = true;
   security.pam.services.swaylock = {};
@@ -126,7 +140,7 @@
   users.users.sleepy = {
     isNormalUser = true;
     description = "sleepy";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd"];
     packages = with pkgs; [
   # ------------------------------------
     gcc
@@ -165,6 +179,7 @@
     unzip
     p7zip
     usermount
+    reptyr
   # ------------------------------------
     google-chrome
     vivaldi
@@ -218,6 +233,15 @@
     libsForQt5.qt5.qtgraphicaleffects
     catppuccin-sddm-corners
     catppuccin
+  # Virtualisation packages------------------------------------
+    virt-manager
+    virt-viewer
+    spice 
+    spice-gtk
+    spice-protocol
+    win-virtio
+    win-spice
+    adwaita-icon-theme
   ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -69,7 +69,8 @@ in
   programs = {
     fzf = {
       enable = true;
-      enableZshIntegration = true;
+      # enableZshIntegration = true;
+      enableBashIntegration = true;
       colors = {
         bg = "#1a1b26";
         "bg+" = "#292e42";
@@ -98,13 +99,13 @@ in
       userName  = "notsooSleepy";
       userEmail = "bartlomiej.grabarek1@gmail.com";
     };
-    zsh = {
+    jujutsu = {
+      enable = true;
+    };
+    bash = {
       enable = true;
       enableCompletion = true;
-      autosuggestion.enable = false;
-      syntaxHighlighting.enable = true;
       enableVteIntegration = true;
-      autocd = true;
       shellAliases = {
         ll = "ls -l";
         update = "sudo nixos-rebuild switch --flake";
@@ -118,21 +119,55 @@ in
         source "$(fzf-share)/completion.zsh"
         fi
       '';
-      history.size = 10000;
-      history.path = "${config.xdg.dataHome}/zsh/history";
-      oh-my-zsh = {
-        enable = true;
-        plugins = [ "git" "thefuck" ];
-        theme = "robbyrussell";
-      };
+      historySize = 10000;
+      sessionVariables = {};
     };
+    # starship = {
+    #   enable = true;
+    #   # enableZshIntegration = true;
+    #   enableBashIntegration = true;
+    #   };
+    oh-my-posh = {
+      enable = true;
+      enableBashIntegration = true;
+      useTheme = "easy-term";
+    };
+    # zsh = {
+    #   enable = true;
+    #   enableCompletion = true;
+    #   autosuggestion.enable = false;
+    #   syntaxHighlighting.enable = true;
+    #   enableVteIntegration = true;
+    #   autocd = true;
+    #   shellAliases = {
+    #     ll = "ls -l";
+    #     update = "sudo nixos-rebuild switch --flake";
+    #     f = "cd $(find * -type d | fzf)";
+    #     fn = "fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' --print0 | xargs -0 -o vim";
+    #     n = "nvim";
+    #   };
+    #   initExtra = ''
+    #     if [ -n "''${commands[fzf-share]}" ]; then
+    #     source "$(fzf-share)/key-bindings.zsh"
+    #     source "$(fzf-share)/completion.zsh"
+    #     fi
+    #   '';
+    #   history.size = 10000;
+    #   history.path = "${config.xdg.dataHome}/zsh/history";
+    #   oh-my-zsh = {
+    #     enable = true;
+    #     plugins = [ "git" "thefuck" ];
+    #     theme = "robbyrussell";
+    #   };
+    # };
     kitty = {
       enable = true;
       font.package = pkgs.fira-code;
       font.name = "FiraCode";
       font.size = 12;
       theme = "Tokyo Night Storm";
-      shellIntegration.enableZshIntegration = true;
+      # shellIntegration.enableZshIntegration = true;
+      shellIntegration.enableBashIntegration = true;
       settings = {
         scrollback_lines = 10000;
       };
@@ -153,15 +188,10 @@ in
         x = "cut";
       };
     };
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-    };
   };
   # neovim config
   programs.neovim = {
     enable = true;
-    # package = pkgs.neovim-nightly;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -197,6 +227,7 @@ in
     ani-cli
     youtube-music
     discord
+    meteo
   # ------------------------------------
     exercism
     gigalixir

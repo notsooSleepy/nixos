@@ -17,6 +17,7 @@ _:
       exec-once = sleep 4 && hyprctl dispatch focuswindow class:discord && hyprctl dispatch movetoworkspacesilent special:music &
       exec-once = [workspace special:term silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty
       exec-once = [workspace special:btop silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty btop
+      exec-once = [workspace special:obsidian silent; float; move 100%-w 100%-w-30; size 2200 97%] obsidian
 
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = DP-1, 1920x1080, 0x0, 1
@@ -208,6 +209,8 @@ _:
       bind = $mainMod, r, exec, hyprctl dispatch togglespecialworkspace term
       bind = $mainMod SHIFT, g, exec, [workspace special:btop silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty btop
       bind = $mainMod, g, exec, hyprctl dispatch togglespecialworkspace btop
+      bind = $mainMod SHIFT, e, exec, [workspace special:obsidian silent; float; move 100%-w 100%-w-30; size 2200 97%] obsidian
+      bind = $mainMod, e, exec, hyprctl dispatch togglespecialworkspace obsidian
 
       # Monitors
       bind = $mainMod, 1, workspace, 1
