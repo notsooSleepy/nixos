@@ -130,7 +130,7 @@ in
     oh-my-posh = {
       enable = true;
       enableBashIntegration = true;
-      useTheme = "easy-term";
+      useTheme = "tokyo";
     };
     # zsh = {
     #   enable = true;
