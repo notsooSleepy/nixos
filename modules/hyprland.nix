@@ -14,7 +14,7 @@ _:
       # Special workspace processes
       exec-once = [workspace special:music silent] youtube-music
       exec-once = discord
-      exec-once = sleep 4 && hyprctl dispatch focuswindow class:discord && hyprctl dispatch movetoworkspacesilent special:music &
+      exec-once = sleep 5 && hyprctl dispatch focuswindow class:discord && hyprctl dispatch movetoworkspacesilent special:music &
       exec-once = [workspace special:term silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty
       exec-once = [workspace special:btop silent; float; move 100%-w-10 100%-w-5; size 2200 97%] kitty btop
       exec-once = [workspace special:obsidian silent; float; move 100%-w 100%-w-30; size 2200 97%] obsidian
